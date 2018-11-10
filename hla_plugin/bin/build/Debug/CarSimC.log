@@ -1,0 +1,4 @@
+﻿  main.cpp
+d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\hla_plugin\hla_plugin\main.cpp(60): warning C4101: 'e': unreferenced local variable
+d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\hla_plugin\hla_plugin\main.cpp(63): warning C4101: 'e': unreferenced local variable
+  CarSimC.vcxproj -> d:\Users\Teosl\Documents\ETI\projekt grupowy\proba\/bin/build/Debug/CarSimC_x64.exe
