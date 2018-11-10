@@ -5,7 +5,7 @@
 hlaFederate::hlaFederate()
 {
 	mainSquare.PozX = 0;
-	mainSquare.PozY = 0;
+	mainSquare.PozY = 2;
 
 }
 void hlaFederate::reflectAttributeValues(

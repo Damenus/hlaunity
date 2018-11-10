@@ -78,7 +78,7 @@ DLLexport void Connect() {
 
 	while (!joined) {
 		try {
-			FederateHandle federateHandle = _rtiAmbassador->joinFederationExecution(L"normal",federationName);
+			FederateHandle federateHandle = _rtiAmbassador->joinFederationExecution(federateName,federationName);
 
 			joined = true;
 			federateName = uniqueName;
@@ -104,6 +104,6 @@ DLLexport void Connect() {
 	log << "get Handles " << endl;
 	log.close();
 }
-DLLexport Square Update() {
+DLLexport Square GetSquare() {
 	return myFederate.getSquare();
 }
