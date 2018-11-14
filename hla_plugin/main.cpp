@@ -5,6 +5,10 @@
 #include "hlaFederate.h"
 #include <RTI/RTIambassador.h>
 #include <Windows.h>
+#include "hlaPlugin.h"
+//#include "Square.h"
+#include <RTI/encoding/HLAfixedRecord.h>
+#include <RTI/encoding/BasicDataElements.h>
 
 using namespace std;
 using namespace rti1516e;
@@ -15,6 +19,8 @@ hlaFederate myFederate;
 ObjectClassHandle squareHandle;
 AttributeHandle posXHandle;
 AttributeHandle posYHandle;
+ObjectInstanceHandle sqrInstanceHandle;
+InteractionClassHandle squareRecived;
 
 
 DLLexport void Connect() {
@@ -97,6 +103,33 @@ DLLexport void Connect() {
 		posXHandle = _rtiAmbassador->getAttributeHandle(squareHandle, L"PosX");
 		posYHandle = _rtiAmbassador->getAttributeHandle(squareHandle, L"PosY");
 		myFederate.setHandle(posXHandle, posYHandle);
+
+		//rejestracja 
+		AttributeHandleSet carAttributes;
+		carAttributes.insert(posXHandle);
+		carAttributes.insert(posYHandle);
+		_rtiAmbassador->publishObjectClassAttributes(squareHandle, carAttributes);
+		//subskrybcja
+		_rtiAmbassador->subscribeObjectClassAttributes(squareHandle, carAttributes);
+		
+		sqrInstanceHandle = _rtiAmbassador->registerObjectInstance(squareHandle);
+
+		
+		AttributeHandleValueMap attributeMap;
+
+		rti1516e::HLAfloat64BE   _x;
+		rti1516e::HLAfloat64BE   _y;
+		_x.set(myFederate.mainSquare.PozX);
+		_y.set(myFederate.mainSquare.PozY);
+
+		attributeMap[posXHandle] = _x.encode();  //myFederate.encodeX();
+		attributeMap[posYHandle] = _y.encode();
+		try {
+			_rtiAmbassador->updateAttributeValues(sqrInstanceHandle, attributeMap, VariableLengthData());
+		}
+		catch (const rti1516e::Exception&) {
+			// Internal data structures are still valid so no clean up is performed
+		}
 	}
 	catch (const rti1516e::Exception&) {
 		throw;
@@ -104,6 +137,50 @@ DLLexport void Connect() {
 	log << "get Handles " << endl;
 	log.close();
 }
+
+void subscribeSquare()
+{
+
+}
+
+// Updating a car involves calling updateAttributeValues for the given car object using
+// the RTI Ambassador.
+DLLexport void UpdatePosition() throw (rti1516e::EncoderException)
+{
+	
+	AttributeHandleValueMap attributeMap;
+
+	rti1516e::HLAfloat64BE   _x;
+	rti1516e::HLAfloat64BE   _y;
+	_x.set(myFederate.mainSquare.PozX);
+	_y.set(myFederate.mainSquare.PozY);
+
+	attributeMap[posXHandle] = _x.encode();  //myFederate.encodeX();
+	attributeMap[posYHandle] = _y.encode();
+	try {
+		_rtiAmbassador->updateAttributeValues(sqrInstanceHandle, attributeMap, VariableLengthData());
+	}
+	catch (const rti1516e::Exception&) {
+		// Internal data structures are still valid so no clean up is performed
+	}
+}
+
 DLLexport Square GetSquare() {
 	return myFederate.getSquare();
+}
+
+DLLexport float GetSquareX() {
+	return myFederate.getSquare().PozX;
+}
+
+DLLexport float GetSquareY() {
+	return myFederate.getSquare().PozY;
+}
+
+DLLexport void SetSquareX(float x) {
+	myFederate.setSquareX(x);
+}
+
+DLLexport void SetSquareY(float y) {
+	myFederate.setSquareY(y);
 }

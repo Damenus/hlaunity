@@ -8,3 +8,8 @@
 ##### Use
 -run Pitch RTI
 -run unity project
+
+
+##### Common problem with dev
+Not loading library
+https://stackoverflow.com/questions/22683601/loadlibrary-always-return-null
