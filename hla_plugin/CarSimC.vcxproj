@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hlaFederate.h" />
-    <ClInclude Include="Square.h" />
+    <ClInclude Include="hlaPlugin.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hlaFederate.cpp" />
@@ -40,10 +40,11 @@
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -87,6 +88,7 @@
     <OutDir>$(SolutionDir)/bin/build/$(Configuration)/</OutDir>
     <IntDir>$(OutDir)</IntDir>
     <TargetName>$(ProjectName)_x64</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)/bin/build/$(Configuration)/</OutDir>
@@ -154,9 +156,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(PRTI1516E_HOME)/lib/vc140_64;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PRTI1516E_HOME)/lib/vc140_64;$(SolutionDir)/lib/win/;$(SolutionDir)/lib/win/x64/</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>libfedtime1516e64.lib;librti1516e64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>boost_filesystem-vc100-mt-gd-1_49.lib;boost_system-vc100-mt-gd-1_49.lib;boost_date_time-vc100-mt-gd-1_49.lib;boost_thread-vc100-mt-gd-1_49.lib;libfedtime1516e64.lib;librti1516e64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

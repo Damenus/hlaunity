@@ -1,6 +1,8 @@
 #include <RTI\NullFederateAmbassador.h>
 #include <RTI/encoding/BasicDataElements.h>
-#include "Square.h"
+//#include "Square.h"
+#include "hlaPlugin.h"
+#include <RTI/encoding/HLAfixedRecord.h>
 
 using namespace std;
 using namespace rti1516e;
@@ -9,6 +11,7 @@ class hlaFederate : public NullFederateAmbassador
 {
 public:
 	Square mainSquare;
+	rti1516e::ObjectInstanceHandle _mainSqare;
 	AttributeHandle   _PosXHandle;
 	AttributeHandle    _PosYHandle;
 	HLAfloat32BE	floatDecoder;
@@ -57,5 +60,11 @@ public:
 	 void setHandle(AttributeHandle posX, AttributeHandle posY);
 
 	 Square getSquare();
+	 void setSquareX(float x);
+	 void setSquareY(float y);
+
+	 rti1516e::VariableLengthData encode();
+	 rti1516e::VariableLengthData encodeX();
+	 rti1516e::VariableLengthData encodeY();
 };
 

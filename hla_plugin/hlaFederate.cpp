@@ -6,7 +6,6 @@ hlaFederate::hlaFederate()
 {
 	mainSquare.PozX = 0;
 	mainSquare.PozY = 2;
-
 }
 void hlaFederate::reflectAttributeValues(
 	ObjectInstanceHandle theObject,
@@ -50,10 +49,10 @@ void hlaFederate::reflectAttributeValues(
 	ObjectInstanceHandle theObject,
 	AttributeHandleValueMap const & theAttributeValues)
 	throw (FederateInternalError) {
-	floatDecoder.decode(theAttributeValues.find(_PosXHandle)->second);
-	mainSquare.PozX = floatDecoder.get();
-	floatDecoder.decode(theAttributeValues.find(_PosYHandle)->second);
-	mainSquare.PozY = floatDecoder.get();
+		floatDecoder.decode(theAttributeValues.find(_PosXHandle)->second);
+		mainSquare.PozX = floatDecoder.get();
+		floatDecoder.decode(theAttributeValues.find(_PosYHandle)->second);
+		mainSquare.PozY = floatDecoder.get();
 	}
 
 void hlaFederate::setHandle(AttributeHandle posX, AttributeHandle posY) {
@@ -63,4 +62,12 @@ void hlaFederate::setHandle(AttributeHandle posX, AttributeHandle posY) {
 
 Square hlaFederate::getSquare() {
 	return mainSquare;
+}
+
+void hlaFederate::setSquareX(float x) {
+	mainSquare.PozX += x;
+}
+
+void hlaFederate::setSquareY(float y) {
+	mainSquare.PozY += y;
 }
