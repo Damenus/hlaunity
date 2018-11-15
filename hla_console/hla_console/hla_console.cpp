@@ -36,6 +36,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	bool running = true;
 	char key_press;
 	Square *mySquare = NULL;
+	float step = 0.05;
 		
 	HINSTANCE hDll = LoadLibrary(L"hlaPlugin_x64.dll");
 
@@ -81,25 +82,25 @@ int _tmain(int argc, _TCHAR* argv[])
 			break;
 		case KEY_UP:
 			cout << endl << "Up" << endl; //key up
-			_setSquareX(1.0);
+			_setSquareX(-step);
 			_updatePosition();
 			cout << "Position X: " << _getSquareX() << "; Position Y: " << _getSquareY() << ";" << endl;
 			break;
 		case KEY_DOWN:
 			cout << endl << "Down" << endl;   // key down
-			_setSquareX(-1.0);
+			_setSquareX(step);
 			_updatePosition();
 			cout << "Position X: " << _getSquareX() << "; Position Y: " << _getSquareY() << ";" << endl;
 			break;
 		case KEY_RIGHT:
 			cout << endl << "Right" << endl;  // key right
-			_setSquareY(1.0);
+			_setSquareY(step);
 			_updatePosition();
 			cout << "Position X: " << _getSquareX() << "; Position Y: " << _getSquareY() << ";" << endl;
 			break;
 		case KEY_LEFT:
 			cout << endl << "Left" << endl;  // key left
-			_setSquareY(-1.0);
+			_setSquareY(-step);
 			_updatePosition();
 			cout << "Position X: " << _getSquareX() << "; Position Y: " << _getSquareY() << ";" << endl;
 			break;
