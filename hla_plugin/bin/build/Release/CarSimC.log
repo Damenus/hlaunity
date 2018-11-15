@@ -1,9 +1,18 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: Katalog pośredni (C:\Users\Damian Darczuk\Desktop\hlaunity-master\hlaunity-master\hla_plugin\/bin/build/Release/) zawiera pliki udostępnione z innego projektu (CarSimC.vcxproj). Może to spowodować niepoprawne zachowanie podczas oczyszczania i ponownej kompilacji.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (d:\Users\Teosl\Documents\ETI\projekt grupowy\kwadrat\hlaunity\hla_plugin\/bin/build/Release/) contains files shared from another project (CarSimC.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   hlaFederate.cpp
-     Trwa tworzenie biblioteki C:\Users\Damian Darczuk\Desktop\hlaunity-master\hlaunity-master\hla_plugin\/bin/build/Release/hlaPlugin_x64.lib i obiektu C:\Users\Damian Darczuk\Desktop\hlaunity-master\hlaunity-master\hla_plugin\/bin/build/Release/hlaPlugin_x64.exp
-  Trwa generowanie kodu
-  0 of 537 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
+  main.cpp
+d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(39): warning C4297: 'Connect': function assumed not to throw an exception but does
+  d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(39): note: The function is extern "C" and /EHc was specified
+d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(50): warning C4297: 'Connect': function assumed not to throw an exception but does
+  d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(50): note: The function is extern "C" and /EHc was specified
+d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(86): warning C4297: 'Connect': function assumed not to throw an exception but does
+  d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(86): note: The function is extern "C" and /EHc was specified
+d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(144): warning C4297: 'Connect': function assumed not to throw an exception but does
+  d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(144): note: The function is extern "C" and /EHc was specified
+     Creating library d:\Users\Teosl\Documents\ETI\projekt grupowy\kwadrat\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.lib and object d:\Users\Teosl\Documents\ETI\projekt grupowy\kwadrat\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.exp
+  Generating code
+  533 of 539 functions (98.9%) were compiled, the rest were copied from previous compilation.
+    24 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
-  Zakończono generowanie kodu
-  CarSimC.vcxproj -> C:\Users\Damian Darczuk\Desktop\hlaunity-master\hlaunity-master\hla_plugin\/bin/build/Release/hlaPlugin_x64.dll
+  Finished generating code
+  CarSimC.vcxproj -> d:\Users\Teosl\Documents\ETI\projekt grupowy\kwadrat\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.dll

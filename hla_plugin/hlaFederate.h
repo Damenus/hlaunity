@@ -11,7 +11,7 @@ class hlaFederate : public NullFederateAmbassador
 {
 public:
 	Square mainSquare;
-	rti1516e::ObjectInstanceHandle _mainSqare;
+	ObjectInstanceHandle _mainSqare;
 	AttributeHandle   _PosXHandle;
 	AttributeHandle    _PosYHandle;
 	HLAfloat32BE	floatDecoder;

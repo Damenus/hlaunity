@@ -21,6 +21,7 @@ AttributeHandle posXHandle;
 AttributeHandle posYHandle;
 ObjectInstanceHandle sqrInstanceHandle;
 InteractionClassHandle squareRecived;
+HLAfloat32BE   floatDecode;
 
 
 DLLexport void Connect() {
@@ -32,7 +33,9 @@ DLLexport void Connect() {
 		shared_ptr<RTIambassadorFactory> rtiAmbassadorFactory(new RTIambassadorFactory());
 		_rtiAmbassador = rtiAmbassadorFactory->createRTIambassador();
 	}
-	catch (const rti1516e::Exception&) {
+	catch (const rti1516e::Exception& e) {
+		log << e.what().c_str();
+		log.flush();
 		throw;
 	}
 	log << "created rti ambassador " << endl;
@@ -41,7 +44,9 @@ DLLexport void Connect() {
 	try {
 		_rtiAmbassador->connect(myFederate, HLA_IMMEDIATE, localSetting);
 	}
-	catch (const rti1516e::Exception&) {
+	catch (const rti1516e::Exception& e) {
+		log << e.what().c_str();
+		log.flush();
 		throw;
 	}
 
@@ -53,11 +58,17 @@ DLLexport void Connect() {
 
 		// we don't have to handle these exceptions
 	}
-	catch (const rti1516e::FederatesCurrentlyJoined&) {
+	catch (const rti1516e::FederatesCurrentlyJoined& e) {
+		log << e.what().c_str();
+		log.flush();
 	}
-	catch (const rti1516e::FederationExecutionDoesNotExist&) {
+	catch (const rti1516e::FederationExecutionDoesNotExist& e) {
+		log << e.what().c_str();
+		log.flush();
 	}
-	catch (const rti1516e::RTIinternalError&) {
+	catch (const rti1516e::RTIinternalError& e) {
+		log << e.what().c_str();
+		log.flush();
 	}
 
 	// Always try and create the federation execution.
@@ -117,13 +128,11 @@ DLLexport void Connect() {
 		
 		AttributeHandleValueMap attributeMap;
 
-		rti1516e::HLAfloat64BE   _x;
-		rti1516e::HLAfloat64BE   _y;
-		_x.set(myFederate.mainSquare.PozX);
-		_y.set(myFederate.mainSquare.PozY);
+		floatDecode.set(myFederate.mainSquare.PozX);
+		attributeMap[posXHandle] = floatDecode.encode();
+		floatDecode.set(myFederate.mainSquare.PozY);
+		attributeMap[posYHandle] = floatDecode.encode();
 
-		attributeMap[posXHandle] = _x.encode();  //myFederate.encodeX();
-		attributeMap[posYHandle] = _y.encode();
 		try {
 			_rtiAmbassador->updateAttributeValues(sqrInstanceHandle, attributeMap, VariableLengthData());
 		}
@@ -150,13 +159,11 @@ DLLexport void UpdatePosition() throw (rti1516e::EncoderException)
 	
 	AttributeHandleValueMap attributeMap;
 
-	rti1516e::HLAfloat64BE   _x;
-	rti1516e::HLAfloat64BE   _y;
-	_x.set(myFederate.mainSquare.PozX);
-	_y.set(myFederate.mainSquare.PozY);
+	floatDecode.set(myFederate.mainSquare.PozX);
+	attributeMap[posXHandle] = floatDecode.encode();
+	floatDecode.set(myFederate.mainSquare.PozY);
+	attributeMap[posYHandle] = floatDecode.encode();
 
-	attributeMap[posXHandle] = _x.encode();  //myFederate.encodeX();
-	attributeMap[posYHandle] = _y.encode();
 	try {
 		_rtiAmbassador->updateAttributeValues(sqrInstanceHandle, attributeMap, VariableLengthData());
 	}
