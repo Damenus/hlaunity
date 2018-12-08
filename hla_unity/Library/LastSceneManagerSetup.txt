@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/hla_try.unity
-  isLoaded: 1
-  isActive: 1
