@@ -1,5 +1,3 @@
 start 
 created rti ambassador 
-connected to RTI 
-Joined 
-get Handles 
+00000000114199C0

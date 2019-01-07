@@ -14,7 +14,7 @@ using namespace std;
 using namespace rti1516e;
 
 auto_ptr<RTIambassador> _rtiAmbassador;
-wstring FOM = L"Square.xml",localSetting= L"tutorial", federationName=L"Square try", federateName = L"Unity plugin";
+wstring FOM = L"Square.xml", localSetting = L"tutorial", federationName = L"Square try", federateName = L"Unity plugin";
 hlaFederate myFederate;
 ObjectClassHandle squareHandle;
 AttributeHandle posXHandle;
@@ -95,7 +95,7 @@ DLLexport void Connect() {
 
 	while (!joined) {
 		try {
-			FederateHandle federateHandle = _rtiAmbassador->joinFederationExecution(federateName,federationName);
+			FederateHandle federateHandle = _rtiAmbassador->joinFederationExecution(federateName, federationName);
 
 			joined = true;
 			federateName = uniqueName;
@@ -110,7 +110,7 @@ DLLexport void Connect() {
 	log.flush();
 
 	try {
-		squareHandle =_rtiAmbassador->getObjectClassHandle(L"Square");
+		squareHandle = _rtiAmbassador->getObjectClassHandle(L"Square");
 		posXHandle = _rtiAmbassador->getAttributeHandle(squareHandle, L"PosX");
 		posYHandle = _rtiAmbassador->getAttributeHandle(squareHandle, L"PosY");
 		myFederate.setHandle(posXHandle, posYHandle);
@@ -122,10 +122,10 @@ DLLexport void Connect() {
 		_rtiAmbassador->publishObjectClassAttributes(squareHandle, carAttributes);
 		//subskrybcja
 		_rtiAmbassador->subscribeObjectClassAttributes(squareHandle, carAttributes);
-		
+
 		sqrInstanceHandle = _rtiAmbassador->registerObjectInstance(squareHandle);
 
-		
+
 		AttributeHandleValueMap attributeMap;
 
 		floatDecode.set(myFederate.mainSquare.PozX);
@@ -147,47 +147,4 @@ DLLexport void Connect() {
 	log.close();
 }
 
-void subscribeSquare()
-{
 
-}
-
-// Updating a car involves calling updateAttributeValues for the given car object using
-// the RTI Ambassador.
-DLLexport void UpdatePosition() throw (rti1516e::EncoderException)
-{
-	
-	AttributeHandleValueMap attributeMap;
-
-	floatDecode.set(myFederate.mainSquare.PozX);
-	attributeMap[posXHandle] = floatDecode.encode();
-	floatDecode.set(myFederate.mainSquare.PozY);
-	attributeMap[posYHandle] = floatDecode.encode();
-
-	try {
-		_rtiAmbassador->updateAttributeValues(sqrInstanceHandle, attributeMap, VariableLengthData());
-	}
-	catch (const rti1516e::Exception&) {
-		// Internal data structures are still valid so no clean up is performed
-	}
-}
-
-DLLexport Square GetSquare() {
-	return myFederate.getSquare();
-}
-
-DLLexport float GetSquareX() {
-	return myFederate.getSquare().PozX;
-}
-
-DLLexport float GetSquareY() {
-	return myFederate.getSquare().PozY;
-}
-
-DLLexport void SetSquareX(float x) {
-	myFederate.setSquareX(x);
-}
-
-DLLexport void SetSquareY(float y) {
-	myFederate.setSquareY(y);
-}

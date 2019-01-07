@@ -18,19 +18,7 @@
             <objectClass>
                 <name>SimulationObject</name>
                 <sharing>PublishSubscribe</sharing>
-                <semantics>ObjectClass witch contain position, id, rotation. Every objectClass in simulation should be child of this</semantics>
-				<attribute>
-                    <name>ID</name>
-                    <dataType>HLAinteger64LE</dataType>
-                    <updateType>Conditional</updateType>
-                    <updateCondition>On change</updateCondition>
-                    <ownership>NoTransfer</ownership>
-                    <sharing>PublishSubscribe</sharing>
-                    <dimensions/>
-                    <transportation>HLAreliable</transportation>
-                    <order>Receive</order>
-                    <semantics>ID of the object</semantics>
-                </attribute>
+                <semantics>ObjectClass witch contain position, velocity, rotation. Every objectClass in simulation should be child of this</semantics>
                 <attribute>
                     <name>PosX</name>
                     <dataType>HLAfloat32LE</dataType>
@@ -55,7 +43,7 @@
                     <order>Receive</order>
                     <semantics>Position Y of the object.</semantics>
                 </attribute>
-				<attribute>
+		            <attribute>
                     <name>PosZ</name>
                     <dataType>HLAfloat32LE</dataType>
                     <updateType>Conditional</updateType>
@@ -67,7 +55,7 @@
                     <order>Receive</order>
                     <semantics>Position Z of the object.</semantics>
                 </attribute>
-				<attribute>
+		            <attribute>
                     <name>RotX</name>
                     <dataType>HLAfloat32LE</dataType>
                     <updateType>Conditional</updateType>
@@ -79,7 +67,7 @@
                     <order>Receive</order>
                     <semantics>Rotation of the object by X axis.</semantics>
                 </attribute>
-				<attribute>
+		            <attribute>
                     <name>RotY</name>
                     <dataType>HLAfloat32LE</dataType>
                     <updateType>Conditional</updateType>
@@ -91,7 +79,7 @@
                     <order>Receive</order>
                     <semantics>Rotation of the object by Y axis.</semantics>
                 </attribute>
-				<attribute>
+		            <attribute>
                     <name>RotZ</name>
                     <dataType>HLAfloat32LE</dataType>
                     <updateType>Conditional</updateType>
@@ -103,14 +91,55 @@
                     <order>Receive</order>
                     <semantics>Rotation of the object by Z axis.</semantics>
                 </attribute>
-				<objectClass>
-					<name>Vehicle</name>
-					<sharing>PublishSubscribe</sharing>
-					<semantics>ObjectClass witch contain position, id, rotation. Every objectClass in simulation should be child of this</semantics>
-				</objectClass>
+                <attribute>
+                    <name>VelX</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Rotation of the object by X axis.</semantics>
+                </attribute>
+		            <attribute>
+                    <name>VelY</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Rotation of the object by Y axis.</semantics>
+                </attribute>
+		            <attribute>
+                    <name>VelZ</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Rotation of the object by Z axis.</semantics>
+                </attribute>
+          			<objectClass>
+          				<name>Vehicle</name>
+          				<sharing>PublishSubscribe</sharing>
+          				<semantics>ObjectClass witch represent evry vechicle in simulation. ex. Tank</semantics>
+          			</objectClass>
+                <objectClass>
+          				<name>Player</name>
+          				<sharing>PublishSubscribe</sharing>
+          				<semantics>ObjectClass witch represent evry player in simulation. </semantics>
+          			</objectClass>
             </objectClass>
         </objectClass>
-    </objects>  
+    </objects>
     <switches>
         <autoProvide isEnabled="true"/>
         <conveyRegionDesignatorSets isEnabled="false"/>
@@ -127,9 +156,5 @@
     <dataTypes>
     </dataTypes>
     <notes>
-        <note>
-            <label>fueleconomybase_1</label>
-            <semantics>Consider using a float for this for higher accuracy</semantics>
-        </note>
     </notes>
 </objectModel>
