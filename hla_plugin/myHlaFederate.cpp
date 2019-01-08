@@ -17,6 +17,223 @@ void myHlaFederate::log(string logMessage) {
 	_log.flush();
 }
 
+void myHlaFederate::log(wstring logMessage)
+{
+	_log << logMessage.c_str() << endl;
+	_log.flush();
+}
+
+////////////////////
+// connect to rti//
+///////////////////
+void myHlaFederate::connect(wstring FOM, wstring localSetting, wstring federationName, wstring federateName)
+{
+	log("startint connecting");
+	try {
+		shared_ptr<RTIambassadorFactory> rtiAmbassadorFactory(new RTIambassadorFactory());
+		_rtiAmbassador = rtiAmbassadorFactory->createRTIambassador();
+	}
+	catch (const rti1516e::Exception& e) {
+		log(e.what());
+		throw;
+	}
+	log("created rti ambassador ");
+
+	try {
+		_rtiAmbassador->connect(*this, HLA_IMMEDIATE, localSetting);
+	}
+	catch (const rti1516e::Exception& e) {
+		log(e.what());
+		throw;
+	}
+
+	log("connected to RTI ");
+
+	try {
+		_rtiAmbassador->destroyFederationExecution(federationName);
+	}
+	catch (const rti1516e::FederatesCurrentlyJoined& e) {
+		log(e.what());
+	}
+	catch (const rti1516e::FederationExecutionDoesNotExist& e) {
+		log(e.what());
+	}
+	catch (const rti1516e::RTIinternalError& e) {
+		log(e.what());
+	}
+
+	// Always try and create the federation execution.
+	// We do this because we have no special federate that has the responsibility
+	// to create the federation execution. Make sure to catch the exception!
+	try {
+		_rtiAmbassador->createFederationExecution(federationName, FOM);
+	}
+	catch (const FederationExecutionAlreadyExists&) {
+		// the federation execution already exist so ignore
+	}
+	catch (const rti1516e::Exception& e) {
+		log(e.what());
+		throw;
+	}
+
+
+	// Join the federation. If the federate name is taken add a sequence 
+	// number to it to make it unique and try again. 
+	bool joined = false;
+	int sequenceNumber = 1;
+	wstring uniqueName = federateName;
+
+	while (!joined) {
+		try {
+			FederateHandle federateHandle = _rtiAmbassador->joinFederationExecution(federateName, federationName);
+
+			joined = true;
+			federateName = uniqueName;
+
+		}
+		catch (const rti1516e::FederateNameAlreadyInUse&) {
+			uniqueName = federateName + L"-";
+			++sequenceNumber;
+		}
+	}
+	log("Joined ");
+}
+
+
+////////////////////////////////////////////////////
+//  Implementation methods to remove object event //
+////////////////////////////////////////////////////
+void myHlaFederate::removeVehicle(VehicleData vehicleData)
+{
+	vector<Vehicle>::iterator it;
+	it = std::find_if(_vehicles.begin(), _vehicles.end(), [&](Vehicle const& obj) {
+		return obj.ID == vehicleData.ID;
+	});
+
+	if (it != _vehicles.end()) {
+		_rtiAmbassador->deleteObjectInstance(it->hlaInstanceHandle, VariableLengthData());
+		_vehicles.erase(it);		
+	}
+	else {
+		log("don't find any object in players - update vehicle");
+	}
+}
+
+void myHlaFederate::removePlayer(PlayerData playerData)
+{
+	vector<Player>::iterator it;
+	it = std::find_if(_players.begin(), _players.end(), [&](Player const& obj) {
+		return obj.ID == playerData.ID;
+	});
+
+	if (it != _players.end()) {
+		_rtiAmbassador->deleteObjectInstance(it->hlaInstanceHandle, VariableLengthData());
+		_players.erase(it);
+	}
+	else {
+		log("don't find any object in players - update vehicle");
+	}
+}
+//////////////////////////////////////////////////////////////
+//  Implementation methods to create object event. Return id//
+//////////////////////////////////////////////////////////////
+
+int myHlaFederate::createVehicle()
+{
+	ObjectInstanceHandle theObject = _rtiAmbassador->registerObjectInstance(Vehicle::handle);
+	Vehicle *newVehicle = new Vehicle(theObject);
+	_vehicles.push_back(*newVehicle);
+	return newVehicle->ID;
+}
+
+int myHlaFederate::createPlayer()
+{
+	ObjectInstanceHandle theObject = _rtiAmbassador->registerObjectInstance(Player::handle);
+	Player *newPlayer = new Player(theObject);
+	_players.push_back(*newPlayer);
+	return newPlayer->ID;
+}
+
+//////////////////////////////////////////////////////
+//  Implementation methods to publish object event. //
+//////////////////////////////////////////////////////
+void myHlaFederate::publishVehicle()
+{
+	AttributeHandleSet vehicleAttribiute;
+	Vehicle::getAttribiuteSet(&vehicleAttribiute);
+
+	_rtiAmbassador->publishObjectClassAttributes(Vehicle::handle, vehicleAttribiute);
+}
+
+void myHlaFederate::publishPlayer()
+{
+	AttributeHandleSet playerAttribiute;
+	Player::getAttribiuteSet(&playerAttribiute);
+
+	_rtiAmbassador->publishObjectClassAttributes(Player::handle, playerAttribiute);
+}
+
+//////////////////////////////////////////////////////
+//  Implementation methods to subscrib object event//
+/////////////////////////////////////////////////////
+void myHlaFederate::subscribeVehicle()
+{
+	AttributeHandleSet vehicleAttribiute;
+	Vehicle::getAttribiuteSet(&vehicleAttribiute);
+
+	_rtiAmbassador->subscribeObjectClassAttributes(Vehicle::handle, vehicleAttribiute);
+}
+
+void myHlaFederate::subscribePlayer()
+{
+	AttributeHandleSet playerAttribiute;
+	Player::getAttribiuteSet(&playerAttribiute);
+
+	_rtiAmbassador->subscribeObjectClassAttributes(Player::handle, playerAttribiute);
+}
+
+
+////////////////////////////////////////////////////
+//  Implementation methods to send update event  //
+///////////////////////////////////////////////////
+
+
+void myHlaFederate::updateVehicle(VehicleData vehicleData)
+{
+	vector<Vehicle>::iterator it;
+	it = std::find_if(_vehicles.begin(), _vehicles.end(), [&](Vehicle const& obj) {
+		return obj.ID == vehicleData.ID;
+	});
+
+	if (it != _vehicles.end()) {
+		it->setVehicleData(vehicleData);
+		AttributeHandleValueMap attributeMap;
+		it->getAttribiuteMap(&attributeMap);
+		_rtiAmbassador->updateAttributeValues(it->hlaInstanceHandle, attributeMap, VariableLengthData());
+	}
+	else {
+		log("don't find any object in players - update vehicle");
+	}
+}
+
+void myHlaFederate::updatePlayer(PlayerData playerData)
+{
+	vector<Player>::iterator it;
+	it = std::find_if(_players.begin(), _players.end(), [&](Player const& obj) {
+		return obj.ID == playerData.ID;
+	});
+
+	if (it != _players.end()) {
+		it->setPlayerData(playerData);
+		AttributeHandleValueMap attributeMap;
+		it->getAttribiuteMap(&attributeMap);
+		_rtiAmbassador->updateAttributeValues(it->hlaInstanceHandle, attributeMap, VariableLengthData());
+	}
+	else {
+		log("don't find any object in players - update player");
+	}
+}
+
 ////////////////////////////////////////////////////////
 //  Implementation methods to handle discovery event //
 ///////////////////////////////////////////////////////
@@ -26,11 +243,11 @@ void myHlaFederate::discoverObjectInstanceImpl(
 	throw (
 		FederateInternalError) {
 
-	if (theObjectClass == Vehicle::vehicleHandle) {
+	if (theObjectClass == Vehicle::handle) {
 		Vehicle *newVehicle = new Vehicle(theObject);
 		_vehicles.push_back(*newVehicle);
 	}
-	else if (theObjectClass == Player::playerHandle) {
+	else if (theObjectClass == Player::handle) {
 		Player *newPlayer = new Player(theObject);
 		_players.push_back(*newPlayer);
 	}
@@ -40,7 +257,7 @@ void myHlaFederate::discoverObjectInstanceImpl(
 }
 
 ////////////////////////////////////////////////////////
-//  Implementation methods to handle discovery event //
+//  Implementation methods to handle reflect event //
 ///////////////////////////////////////////////////////
 void myHlaFederate::reflectAttributeValuesImpl(
 	ObjectInstanceHandle theObject,
@@ -49,32 +266,32 @@ void myHlaFederate::reflectAttributeValuesImpl(
 		FederateInternalError) {
 
 	ObjectClassHandle theObjectClass = _rtiAmbassador->getKnownObjectClassHandle(theObject);
-	if (theObjectClass == Vehicle::vehicleHandle) {
+	if (theObjectClass == Vehicle::handle) {
 		vector<Vehicle>::iterator it;
-		it = std::find_if(_vehicles.begin(), _vehicles.end(), [](Vehicle const& obj) {
+		it = std::find_if(_vehicles.begin(), _vehicles.end(), [&](Vehicle const& obj) {
 			return obj.hlaInstanceHandle == theObject;
 		});
 
 		if (it != _vehicles.end()) {
-			it->updateAtribiute(theAttributeValues);
+			it->updateAttribiutes(theAttributeValues);
 		}
 			
 		else {
-			log("don't find any object in vehicle - reflect atribiute")
+			log("don't find any object in vehicle - reflect atribiute");
 		}		
 
 	}
-	else if (theObjectClass == Player::playerHandle) {
+	else if (theObjectClass == Player::handle) {
 		vector<Player>::iterator it;
-		it = std::find_if(_players.begin(), _players.end(), [](Player const& obj) {
+		it = std::find_if(_players.begin(), _players.end(), [&](Player const& obj) {
 			return obj.hlaInstanceHandle == theObject;
 		});
 
 		if (it != _players.end()) {
-			it->updateAtribiute(theAttributeValues);
+			it->updateAttribiutes(theAttributeValues);
 		}
 		else {
-			log("don't find any object in vehicle - reflect atribiute");
+			log("don't find any object in players - reflect atribiute");
 		}
 	}
 	else {
@@ -85,12 +302,14 @@ void myHlaFederate::reflectAttributeValuesImpl(
 /////////////////////////////////////////////////////////////////
 //  Implementation methods to handle receive interaction event //
 /////////////////////////////////////////////////////////////////
+
+//TODO when we have interaction
 void myHlaFederate::receiveInteractionImpl(
 	InteractionClassHandle theInteraction,
 	ParameterHandleValueMap const & theParameterValues)
 	throw (
 		FederateInternalError) {
-
+	log("receive interaction but nothing doing with it");
 }
 
 ////////////////////////////////////////////////////////////
@@ -100,7 +319,38 @@ void myHlaFederate::removeObjectInstanceImpl(
 	ObjectInstanceHandle theObject)
 	throw (
 		FederateInternalError) {
+	ObjectClassHandle theObjectClass = _rtiAmbassador->getKnownObjectClassHandle(theObject);
+	if (theObjectClass == Vehicle::handle) {
+		vector<Vehicle>::iterator it;
+		it = std::find_if(_vehicles.begin(), _vehicles.end(), [&](Vehicle const& obj) {
+			return obj.hlaInstanceHandle == theObject;
+		});
 
+		if (it != _vehicles.end()) {
+			_vehicles.erase(it);
+		}
+
+		else {
+			log("don't find any object in vehicle - remove object");
+		}
+
+	}
+	else if (theObjectClass == Player::handle) {
+		vector<Player>::iterator it;
+		it = std::find_if(_players.begin(), _players.end(), [&](Player const& obj) {
+			return obj.hlaInstanceHandle == theObject;
+		});
+
+		if (it != _players.end()) {
+			_players.erase(it);
+		}
+		else {
+			log("don't find any object in players - remove object");
+		}
+	}
+	else {
+		log("Don't recognize object class in remove object");
+	}
 }
 
 ////////////////////////////////////////////////////////////////
@@ -112,6 +362,42 @@ void myHlaFederate::provideAttributeValueUpdateImpl(
 	throw (
 		FederateInternalError) {
 
+	ObjectClassHandle theObjectClass = _rtiAmbassador->getKnownObjectClassHandle(theObject);
+	AttributeHandleValueMap attributeMap;
+
+	if (theObjectClass == Vehicle::handle) {
+		vector<Vehicle>::iterator it;
+		it = std::find_if(_vehicles.begin(), _vehicles.end(), [&](Vehicle const& obj) {
+			return obj.hlaInstanceHandle == theObject;
+		});
+
+		if (it != _vehicles.end()) {
+			it->getAttribiuteMap(theAttributes,&attributeMap);
+			_rtiAmbassador->updateAttributeValues(theObject, attributeMap, VariableLengthData());
+		}
+
+		else {
+			log("don't find any object in vehicle - reflect atribiute");
+		}
+
+	}
+	else if (theObjectClass == Player::handle) {
+		vector<Player>::iterator it;
+		it = std::find_if(_players.begin(), _players.end(), [&](Player const& obj) {
+			return obj.hlaInstanceHandle == theObject;
+		});
+
+		if (it != _players.end()) {
+			it->getAttribiuteMap(theAttributes, &attributeMap);
+			_rtiAmbassador->updateAttributeValues(theObject, attributeMap, VariableLengthData());
+		}
+		else {
+			log("don't find any object in players - reflect atribiute");
+		}
+	}
+	else {
+		log("Don't recognize object class in reflected atribiute");
+	}
 }
 
 

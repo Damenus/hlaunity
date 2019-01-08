@@ -3,6 +3,7 @@
 #include <RTI/encoding/BasicDataElements.h>
 #include <RTI/encoding/HLAfixedRecord.h>
 #include <RTI/RTIambassador.h>
+#include <RTI/RTIambassadorFactory.h>
 #include "Vehicle.h"
 #include "Player.h"
 #include <algorithm>
@@ -26,7 +27,43 @@ public:
 	~myHlaFederate();
 
 	void log(string logMessage);
+	void log(wstring logMessage);
 
+	////////////////////
+	// connect to rti//
+	///////////////////
+	void connect(wstring FOM, wstring localSetting, wstring federationName, wstring federateName);
+
+
+	////////////////////////////////////////////////////
+	//  Implementation methods to remove object event //
+	////////////////////////////////////////////////////
+	void removeVehicle(VehicleData vehicleData);
+	void removePlayer(PlayerData playerData);
+
+	//////////////////////////////////////////////////////////////
+	//  Implementation methods to create object event. Return id//
+	//////////////////////////////////////////////////////////////
+	int createVehicle();
+	int createPlayer();
+
+	//////////////////////////////////////////////////////
+	//  Implementation methods to publish object event. //
+	//////////////////////////////////////////////////////
+	void publishVehicle();
+	void publishPlayer();
+
+	//////////////////////////////////////////////////////
+	//  Implementation methods to subscrib object event//
+	/////////////////////////////////////////////////////
+	void subscribeVehicle();
+	void subscribePlayer();
+
+	///////////////////////////////////////////////////
+	//  Implementation methods to send update event //
+	//////////////////////////////////////////////////
+	void updateVehicle(VehicleData vehicleData);
+	void updatePlayer(PlayerData playerData);
 
 	////////////////////////////////////////////////////////
 	//  Implementation methods to handle discovery event //

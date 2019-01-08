@@ -2,12 +2,106 @@
 
 
 
+void Player::getAttribiuteSet(AttributeHandleSet *attributeSet)
+{
+	for (map<AttributeHandle, AttribiutrType>::iterator itLocal = attribiuteStaticCollection.begin(); itLocal != attribiuteStaticCollection.end(); ++itLocal) {
+		attributeSet->insert(itLocal->first);
+	}
+}
+
+void Player::InitClass(auto_ptr<rti1516e::RTIambassador> _rtiAmbassador)
+{
+	handle = _rtiAmbassador->getObjectClassHandle(L"Player");
+
+
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle,L"PosX")] = AttribiutrType::FLOAT;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosY")] = AttribiutrType::FLOAT;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosZ")] = AttribiutrType::FLOAT;
+
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotX")] = AttribiutrType::FLOAT;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotY")] = AttribiutrType::FLOAT;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotZ")] = AttribiutrType::FLOAT;
+
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelX")] = AttribiutrType::FLOAT;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelY")] = AttribiutrType::FLOAT;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelZ")] = AttribiutrType::FLOAT;
+
+}
+
 Player::Player(ObjectInstanceHandle hlaInstanceHandle)
 {
+	map<AttributeHandle, AttribiutrType>::iterator it;
+	it = attribiuteStaticCollection.begin();
+	
+	ptrAttribiuteCollection[it->first] = &posX;
+	it++;
+	ptrAttribiuteCollection[it->first] = &posY;
+	it++;
+	ptrAttribiuteCollection[it->first] = &posZ;
+	it++;
+
+	ptrAttribiuteCollection[it->first] = &rotX;
+	it++;
+	ptrAttribiuteCollection[it->first] = &rotY;
+	it++;
+	ptrAttribiuteCollection[it->first] = &rotZ;
+	it++;
+
+	ptrAttribiuteCollection[it->first] = &velX;
+	it++;
+	ptrAttribiuteCollection[it->first] = &velY;
+	it++;
+	ptrAttribiuteCollection[it->first] = &velZ;
 	SimulationObject::SimulationObject(hlaInstanceHandle);
 }
 
 
 Player::~Player()
 {
+}
+
+void Player::setValue(AttributeHandle attribiuteHandleToSet, VariableLengthData value)
+{
+	SimulationObject::setValue(&attribiuteStaticCollection, attribiuteHandleToSet, value);
+}
+
+VariableLengthData Player::getValue(AttributeHandle attribiuteHandleToGet)
+{
+	return SimulationObject::getValue(&attribiuteStaticCollection, attribiuteHandleToGet);
+}
+
+void Player::setPlayerData(PlayerData playerData)
+{
+	posX = playerData.posX;
+	posY = playerData.posY; 
+	posZ = playerData.posZ;
+
+	rotX = playerData.rotX; 
+	rotY = playerData.rotY; 
+	rotZ=playerData.rotZ;
+
+	velX = playerData.velX;
+	velY = playerData.velY;
+	velZ= playerData.velZ;
+}
+
+PlayerData Player::getPlayerData()
+{
+	PlayerData toReturn;
+
+	toReturn.ID = ID;
+
+	toReturn.posX = posX;
+	toReturn.posY = posY;
+	toReturn.posZ = posZ;
+
+	toReturn.rotX = rotX;
+	toReturn.rotY = rotY;
+	toReturn.rotZ = rotZ;
+
+	toReturn.velX = velX;
+	toReturn.velY = velY;
+	toReturn.velZ = velZ;
+
+	return toReturn;
 }

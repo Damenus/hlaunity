@@ -2,25 +2,50 @@
 #include "Dim3.h"
 #include <RTI/RTIambassador.h>
 #include <RTI/encoding/BasicDataElements.h>
+#include "StaticAttribiute.h"
 
 using namespace std;
 using namespace rti1516e;
+
+
 
 class SimulationObject
 {
 public:
 	static int idCount;
-	SimulationObject::SimulationObject(ObjectInstanceHandle hlaInstanceHandle);
+	static HLAfloat32BE floatDecoder;
+
+	SimulationObject();
+	SimulationObject(ObjectInstanceHandle hlaInstanceHandle);
 	~SimulationObject();
+
+	map<AttributeHandle, void*> ptrAttribiuteCollection;
+
+	void updateAttribiutes(AttributeHandleValueMap const & theAttributeValues);
+	void getAttribiuteMap(AttributeHandleSet const & theAttributes, AttributeHandleValueMap* attributeMap);
+	void getAttribiuteMap(AttributeHandleValueMap* attributeMap);
+
+	void setValue(map<AttributeHandle, AttribiutrType> *attribiuteStaticCollection,AttributeHandle attribiuteHandleToSet, VariableLengthData value);
+	VariableLengthData getValue(map<AttributeHandle, AttribiutrType> *attribiuteStaticCollection,AttributeHandle attribiuteHandleToGet);
+	
+	virtual void setValue( AttributeHandle attribiuteHandleToSet, VariableLengthData value);
+	virtual VariableLengthData getValue( AttributeHandle attribiuteHandleToGet);
 
 	// faster to write then use setter getter
 
 	ObjectInstanceHandle hlaInstanceHandle; //used only to recognize hlaObject
 	int ID; // Used only to recognize object in our simulation. It can be diffrent in every simulation
 
+	float posX;
+	float posY;
+	float posZ;
 
-	Dim3 position;
-	Dim3 rotation;
-	Dim3 velocity;
+	float rotX;
+	float rotY;
+	float rotZ;
+
+	float velX;
+	float velY;
+	float velZ;
 };
 
