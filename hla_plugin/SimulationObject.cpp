@@ -2,6 +2,9 @@
 
 
 
+int SimulationObject::idCount;
+HLAfloat32BE SimulationObject::floatDecoder;
+
 SimulationObject::SimulationObject()
 {
 }
@@ -52,9 +55,9 @@ void SimulationObject::getAttribiuteMap(AttributeHandleValueMap * attributeMap)
 	}
 }
 
-void SimulationObject::setValue(map<AttributeHandle, AttribiutrType> *attribiuteStaticCollection, AttributeHandle attribiuteHandleToSet, VariableLengthData value)
+void SimulationObject::setValue(map<AttributeHandle, AttribiuteType> *attribiuteStaticCollection, AttributeHandle attribiuteHandleToSet, VariableLengthData value)
 {
-	if (attribiuteStaticCollection->find(attribiuteHandleToSet)->second  == AttribiutrType::FLOAT) {
+	if (attribiuteStaticCollection->find(attribiuteHandleToSet)->second  == AttribiuteType::FLOAT_HLA) {
 		floatDecoder.decode(value);
 		*((float*)ptrAttribiuteCollection.find(attribiuteHandleToSet)->second) = floatDecoder.get();
 	}
@@ -63,9 +66,9 @@ void SimulationObject::setValue(map<AttributeHandle, AttribiutrType> *attribiute
 	}
 }
 
-VariableLengthData SimulationObject::getValue(map<AttributeHandle, AttribiutrType> *attribiuteStaticCollection, AttributeHandle attribiuteHandleToGet)
+VariableLengthData SimulationObject::getValue(map<AttributeHandle, AttribiuteType> *attribiuteStaticCollection, AttributeHandle attribiuteHandleToGet)
 {
-	if (attribiuteStaticCollection->find(attribiuteHandleToGet)->second == AttribiutrType::FLOAT) {
+	if (attribiuteStaticCollection->find(attribiuteHandleToGet)->second == AttribiuteType::FLOAT_HLA) {
 		floatDecoder.set(*((float*)ptrAttribiuteCollection.find(attribiuteHandleToGet)->second));
 		return floatDecoder.encode();
 	}
@@ -73,7 +76,6 @@ VariableLengthData SimulationObject::getValue(map<AttributeHandle, AttribiutrTyp
 
 	}
 }
-
 
 
 

@@ -1,8 +1,7 @@
 #pragma once
-#include "Dim3.h"
 #include <RTI/RTIambassador.h>
 #include <RTI/encoding/BasicDataElements.h>
-#include "StaticAttribiute.h"
+#include "AttribiuteType.h"
 
 using namespace std;
 using namespace rti1516e;
@@ -25,11 +24,11 @@ public:
 	void getAttribiuteMap(AttributeHandleSet const & theAttributes, AttributeHandleValueMap* attributeMap);
 	void getAttribiuteMap(AttributeHandleValueMap* attributeMap);
 
-	void setValue(map<AttributeHandle, AttribiutrType> *attribiuteStaticCollection,AttributeHandle attribiuteHandleToSet, VariableLengthData value);
-	VariableLengthData getValue(map<AttributeHandle, AttribiutrType> *attribiuteStaticCollection,AttributeHandle attribiuteHandleToGet);
+	void setValue(map<AttributeHandle, AttribiuteType> *attribiuteStaticCollection,AttributeHandle attribiuteHandleToSet, VariableLengthData value);
+	VariableLengthData getValue(map<AttributeHandle, AttribiuteType> *attribiuteStaticCollection,AttributeHandle attribiuteHandleToGet);
 	
-	virtual void setValue( AttributeHandle attribiuteHandleToSet, VariableLengthData value);
-	virtual VariableLengthData getValue( AttributeHandle attribiuteHandleToGet);
+	virtual void setValue(AttributeHandle attribiuteHandleToSet, VariableLengthData value) {};
+	virtual VariableLengthData getValue(AttributeHandle attribiuteHandleToGet) { return VariableLengthData(); };
 
 	// faster to write then use setter getter
 

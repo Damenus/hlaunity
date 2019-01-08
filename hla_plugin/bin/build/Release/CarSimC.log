@@ -1,18 +1,12 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (d:\Users\Teosl\Documents\ETI\projekt grupowy\kwadrat\hlaunity\hla_plugin\/bin/build/Release/) contains files shared from another project (CarSimC.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  hlaFederate.cpp
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/) contains files shared from another project (CarSimC.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Player.cpp
+  SimulationObject.cpp
+  Vehicle.cpp
   main.cpp
-d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(39): warning C4297: 'Connect': function assumed not to throw an exception but does
-  d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(39): note: The function is extern "C" and /EHc was specified
-d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(50): warning C4297: 'Connect': function assumed not to throw an exception but does
-  d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(50): note: The function is extern "C" and /EHc was specified
-d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(86): warning C4297: 'Connect': function assumed not to throw an exception but does
-  d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(86): note: The function is extern "C" and /EHc was specified
-d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(144): warning C4297: 'Connect': function assumed not to throw an exception but does
-  d:\users\teosl\documents\eti\projekt grupowy\kwadrat\hlaunity\hla_plugin\main.cpp(144): note: The function is extern "C" and /EHc was specified
-     Creating library d:\Users\Teosl\Documents\ETI\projekt grupowy\kwadrat\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.lib and object d:\Users\Teosl\Documents\ETI\projekt grupowy\kwadrat\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.exp
+  myHlaFederate.cpp
+     Creating library d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.lib and object d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.exp
   Generating code
-  533 of 539 functions (98.9%) were compiled, the rest were copied from previous compilation.
-    24 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+d:\users\teosl\documents\eti\projekt grupowy\_program\hlaunity\hla_plugin\simulationobject.cpp(78): warning C4715: 'SimulationObject::getValue': not all control paths return a value
+  All 917 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  CarSimC.vcxproj -> d:\Users\Teosl\Documents\ETI\projekt grupowy\kwadrat\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.dll
+  CarSimC.vcxproj -> d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.dll

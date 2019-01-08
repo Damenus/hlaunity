@@ -19,12 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="hlaFederate.h" />
-    <ClInclude Include="hlaPlugin.h" />
+    <ClInclude Include="AttribiuteType.h" />
+    <ClInclude Include="dataDll.h" />
+    <ClInclude Include="myHlaFederate.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="SimulationObject.h" />
+    <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="hlaFederate.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="myHlaFederate.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SimulationObject.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A6B6497B-3588-4618-84E4-8F483E298B62}</ProjectGuid>

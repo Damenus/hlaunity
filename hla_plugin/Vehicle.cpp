@@ -1,9 +1,11 @@
 #include "Vehicle.h"
 
+ObjectClassHandle Vehicle::handle;
+map<AttributeHandle, AttribiuteType> Vehicle::attribiuteStaticCollection;
 
 void Vehicle::getAttribiuteSet(AttributeHandleSet  *attributeSet)
 {
-	for (map<AttributeHandle, AttribiutrType>::iterator itLocal = attribiuteStaticCollection.begin(); itLocal != attribiuteStaticCollection.end(); ++itLocal) {
+	for (map<AttributeHandle, AttribiuteType>::iterator itLocal = attribiuteStaticCollection.begin(); itLocal != attribiuteStaticCollection.end(); ++itLocal) {
 		attributeSet->insert(itLocal->first);
 	}
 }
@@ -13,23 +15,23 @@ void Vehicle::InitClass(auto_ptr<rti1516e::RTIambassador> _rtiAmbassador)
 	handle = _rtiAmbassador->getObjectClassHandle(L"Player");
 
 
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosX")] = AttribiutrType::FLOAT;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosY")] = AttribiutrType::FLOAT;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosZ")] = AttribiutrType::FLOAT;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosX")] = AttribiuteType::FLOAT_HLA;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosY")] = AttribiuteType::FLOAT_HLA;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosZ")] = AttribiuteType::FLOAT_HLA;
 
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotX")] = AttribiutrType::FLOAT;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotY")] = AttribiutrType::FLOAT;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotZ")] = AttribiutrType::FLOAT;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotX")] = AttribiuteType::FLOAT_HLA;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotY")] = AttribiuteType::FLOAT_HLA;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotZ")] = AttribiuteType::FLOAT_HLA;
 
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelX")] = AttribiutrType::FLOAT;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelY")] = AttribiutrType::FLOAT;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelZ")] = AttribiutrType::FLOAT;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelX")] = AttribiuteType::FLOAT_HLA;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelY")] = AttribiuteType::FLOAT_HLA;
+	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelZ")] = AttribiuteType::FLOAT_HLA;
 
 }
 
 Vehicle::Vehicle(ObjectInstanceHandle hlaInstanceHandle)
 {
-	map<AttributeHandle, AttribiutrType>::iterator it;
+	map<AttributeHandle, AttribiuteType>::iterator it;
 	it = attribiuteStaticCollection.begin();
 
 	ptrAttribiuteCollection[it->first] = &posX;

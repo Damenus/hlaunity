@@ -8,6 +8,7 @@
 #include "Player.h"
 #include <algorithm>
 #include <fstream>
+#include <memory>
 
 using namespace std;
 using namespace rti1516e;
@@ -20,10 +21,10 @@ public:
 	vector<Vehicle> _vehicles;
 	vector<Player> _players;
 
-	ofstream _log;
-
+	ofstream *_log;
 
 	myHlaFederate();
+	myHlaFederate(ofstream *logFile);
 	~myHlaFederate();
 
 	void log(string logMessage);

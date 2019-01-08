@@ -6,6 +6,11 @@ myHlaFederate::myHlaFederate()
 {
 }
 
+myHlaFederate::myHlaFederate(ofstream *logFile)
+{
+	_log = logFile;
+}
+
 
 myHlaFederate::~myHlaFederate()
 {
@@ -13,14 +18,14 @@ myHlaFederate::~myHlaFederate()
 
 //add date to message
 void myHlaFederate::log(string logMessage) {
-	_log << logMessage << endl;
-	_log.flush();
+	*_log << logMessage << endl;
+	_log->flush();
 }
 
 void myHlaFederate::log(wstring logMessage)
 {
-	_log << logMessage.c_str() << endl;
-	_log.flush();
+	*_log << logMessage.c_str() << endl;
+	_log->flush();
 }
 
 ////////////////////

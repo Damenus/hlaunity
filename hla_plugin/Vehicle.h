@@ -9,7 +9,7 @@ class Vehicle :
 {
 public:
 	static ObjectClassHandle handle;
-	static map<AttributeHandle, AttribiutrType> attribiuteStaticCollection;
+	static map<AttributeHandle, AttribiuteType> attribiuteStaticCollection;
 	static void getAttribiuteSet(AttributeHandleSet *attributeSet);
 	static void InitClass(auto_ptr<rti1516e::RTIambassador> _rtiAmbassador);	
 
