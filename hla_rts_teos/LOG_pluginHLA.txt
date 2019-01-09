@@ -1,3 +1,8 @@
-start 
+startint connecting
 created rti ambassador 
-00000000114199C0
+connected to RTI 
+after destroy federation
+created federation execution
+Joined 
+Enter Publish Player
+publishe player

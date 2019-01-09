@@ -58,7 +58,7 @@ void myHlaFederate::connect(wstring FOM, wstring localSetting, wstring federatio
 		_rtiAmbassador->destroyFederationExecution(federationName);
 	}
 	catch (const rti1516e::FederatesCurrentlyJoined& e) {
-		log(e.what());
+		log( e.what());
 	}
 	catch (const rti1516e::FederationExecutionDoesNotExist& e) {
 		log(e.what());
@@ -67,6 +67,7 @@ void myHlaFederate::connect(wstring FOM, wstring localSetting, wstring federatio
 		log(e.what());
 	}
 
+	log("after destroy federation");
 	// Always try and create the federation execution.
 	// We do this because we have no special federate that has the responsibility
 	// to create the federation execution. Make sure to catch the exception!
@@ -77,10 +78,12 @@ void myHlaFederate::connect(wstring FOM, wstring localSetting, wstring federatio
 		// the federation execution already exist so ignore
 	}
 	catch (const rti1516e::Exception& e) {
+		log("exception in createFederation");
+		*_log << e.what().c_str();
 		log(e.what());
 		throw;
 	}
-
+	log("created federation execution");
 
 	// Join the federation. If the federate name is taken add a sequence 
 	// number to it to make it unique and try again. 
@@ -164,18 +167,30 @@ int myHlaFederate::createPlayer()
 //////////////////////////////////////////////////////
 void myHlaFederate::publishVehicle()
 {
+	log("Publish vehicle");
+	if (!Vehicle::initiated) {
+		Vehicle::InitClass(_rtiAmbassador);
+		log("Initialiazd vehicle");
+	}
 	AttributeHandleSet vehicleAttribiute;
 	Vehicle::getAttribiuteSet(&vehicleAttribiute);
 
 	_rtiAmbassador->publishObjectClassAttributes(Vehicle::handle, vehicleAttribiute);
+	log("published vehicle");
 }
 
 void myHlaFederate::publishPlayer()
 {
+	log("publishe player");
+	if (!Player::initiated) {
+		Player::InitClass(_rtiAmbassador);
+		log("Initialiazd player");
+	}
 	AttributeHandleSet playerAttribiute;
 	Player::getAttribiuteSet(&playerAttribiute);
 
 	_rtiAmbassador->publishObjectClassAttributes(Player::handle, playerAttribiute);
+	log("published player");
 }
 
 //////////////////////////////////////////////////////
@@ -183,18 +198,30 @@ void myHlaFederate::publishPlayer()
 /////////////////////////////////////////////////////
 void myHlaFederate::subscribeVehicle()
 {
+	log("Subscribe vehicle");
+	if (!Vehicle::initiated) {
+		Vehicle::InitClass(_rtiAmbassador);
+		log("Initialiazd vehicle");
+	}
 	AttributeHandleSet vehicleAttribiute;
 	Vehicle::getAttribiuteSet(&vehicleAttribiute);
 
 	_rtiAmbassador->subscribeObjectClassAttributes(Vehicle::handle, vehicleAttribiute);
+	log("Subscribed vehicle");
 }
 
 void myHlaFederate::subscribePlayer()
 {
+	log("Subscribe player");
+	if (!Player::initiated) {
+		Player::InitClass(_rtiAmbassador);
+		log("Initialiazd player");
+	}
 	AttributeHandleSet playerAttribiute;
 	Player::getAttribiuteSet(&playerAttribiute);
 
 	_rtiAmbassador->subscribeObjectClassAttributes(Player::handle, playerAttribiute);
+	log("Subscribe player");
 }
 
 

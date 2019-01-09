@@ -10,8 +10,10 @@ class Vehicle :
 public:
 	static ObjectClassHandle handle;
 	static map<AttributeHandle, AttribiuteType> attribiuteStaticCollection;
+	static bool initiated;
 	static void getAttribiuteSet(AttributeHandleSet *attributeSet);
-	static void InitClass(auto_ptr<rti1516e::RTIambassador> _rtiAmbassador);	
+	static void InitClass(auto_ptr<rti1516e::RTIambassador> _rtiAmbassador);
+	
 
 	Vehicle(ObjectInstanceHandle hlaInstanceHandle);
 	~Vehicle();

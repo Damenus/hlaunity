@@ -2,6 +2,7 @@
 
 ObjectClassHandle Player::handle;
 map<AttributeHandle, AttribiuteType> Player::attribiuteStaticCollection;
+bool Player::initiated = false;
 
 void Player::getAttribiuteSet(AttributeHandleSet *attributeSet)
 {
@@ -27,6 +28,7 @@ void Player::InitClass(auto_ptr<rti1516e::RTIambassador> _rtiAmbassador)
 	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelY")] = AttribiuteType::FLOAT_HLA;
 	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelZ")] = AttribiuteType::FLOAT_HLA;
 
+	initiated = true;
 }
 
 Player::Player(ObjectInstanceHandle hlaInstanceHandle)

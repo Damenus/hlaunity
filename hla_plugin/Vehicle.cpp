@@ -2,6 +2,7 @@
 
 ObjectClassHandle Vehicle::handle;
 map<AttributeHandle, AttribiuteType> Vehicle::attribiuteStaticCollection;
+bool Vehicle::initiated=false;
 
 void Vehicle::getAttribiuteSet(AttributeHandleSet  *attributeSet)
 {
@@ -27,6 +28,7 @@ void Vehicle::InitClass(auto_ptr<rti1516e::RTIambassador> _rtiAmbassador)
 	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelY")] = AttribiuteType::FLOAT_HLA;
 	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelZ")] = AttribiuteType::FLOAT_HLA;
 
+	initiated = true;
 }
 
 Vehicle::Vehicle(ObjectInstanceHandle hlaInstanceHandle)

@@ -15,22 +15,16 @@ public struct Square
 public class mainScript : MonoBehaviour {
     [DllImport("hlaPlugin_x64")]
     public static extern void Connect();
-
     [DllImport("hlaPlugin_x64")]
-    public static extern Square GetSquare();
-
-    public GameObject mainSquare;
-    public Square square2d;
+    public static extern void PublishPlayer();
 
     // Use this for initialization
     void Start () {
-        mainSquare = GameObject.Find("mainSquare");
         Connect();
+        PublishPlayer();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        square2d = GetSquare();
-        mainSquare.transform.position = new Vector3(square2d.posX, (float)0.5, square2d.posY);
 	}
 }
