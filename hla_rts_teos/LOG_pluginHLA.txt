@@ -4,5 +4,6 @@ connected to RTI
 after destroy federation
 created federation execution
 Joined 
-Enter Publish Player
-publishe player
+Subscribe vehicle
+Initialiazd vehicle
+Subscribed vehicle

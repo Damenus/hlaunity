@@ -16,7 +16,7 @@ using namespace rti1516e;
 class myHlaFederate : public NullFederateAmbassador
 {
 public:
-	auto_ptr<RTIambassador> _rtiAmbassador;
+	shared_ptr<RTIambassador> _rtiAmbassador;
 
 	vector<Vehicle> _vehicles;
 	vector<Player> _players;

@@ -1,2 +1,10 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: Katalog pośredni (C:\Users\Damian Darczuk\Desktop\hlaunity-master\hlaunity-master\hla_plugin\/bin/build/Debug/) zawiera pliki udostępnione z innego projektu (CarSimC.vcxproj). Może to spowodować niepoprawne zachowanie podczas oczyszczania i ponownej kompilacji.
-cl : Wiersz polecenia error D8016: opcje wiersza poleceń "/ZI" i "/GL" są niezgodne
+﻿  main.cpp
+  myHlaFederate.cpp
+  Player.cpp
+  Vehicle.cpp
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+     Creating library D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.lib and object D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.exp
+  Generating code
+d:\users\teosl\documents\eti\projekt grupowy\_program\hlaunity\hla_plugin\simulationobject.cpp(78): warning C4715: 'SimulationObject::getValue': not all control paths return a value
+  Finished generating code
+  CarSimC.vcxproj -> D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.dll

@@ -123,12 +123,14 @@
       <AdditionalIncludeDirectories>$(PRTI1516E_HOME)/include;$(SolutionDir)/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);BOOST_ALL_DYN_LINK</PreprocessorDefinitions>
       <DisableSpecificWarnings>4290;4251</DisableSpecificWarnings>
+      <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(PRTI1516E_HOME)/lib/vc140_64;$(SolutionDir)/lib/win/x64/</AdditionalLibraryDirectories>
       <AdditionalDependencies>boost_filesystem-vc100-mt-gd-1_49.lib;boost_system-vc100-mt-gd-1_49.lib;boost_date_time-vc100-mt-gd-1_49.lib;boost_thread-vc100-mt-gd-1_49.lib;libfedtime1516e64d.lib;librti1516e64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AssemblyDebug>true</AssemblyDebug>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

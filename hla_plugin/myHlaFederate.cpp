@@ -24,7 +24,7 @@ void myHlaFederate::log(string logMessage) {
 
 void myHlaFederate::log(wstring logMessage)
 {
-	*_log << logMessage.c_str() << endl;
+	*_log << logMessage.data() << endl;
 	_log->flush();
 }
 
@@ -181,16 +181,21 @@ void myHlaFederate::publishVehicle()
 
 void myHlaFederate::publishPlayer()
 {
-	log("publishe player");
-	if (!Player::initiated) {
-		Player::InitClass(_rtiAmbassador);
-		log("Initialiazd player");
-	}
-	AttributeHandleSet playerAttribiute;
-	Player::getAttribiuteSet(&playerAttribiute);
+	try {
+		log("publishe player");
+		if (!Player::initiated) {
+			Player::InitClass(_rtiAmbassador);
+			log("Initialiazd player");
+		}
+		AttributeHandleSet playerAttribiute;
+		Player::getAttribiuteSet(&playerAttribiute);
 
-	_rtiAmbassador->publishObjectClassAttributes(Player::handle, playerAttribiute);
-	log("published player");
+		_rtiAmbassador->publishObjectClassAttributes(Player::handle, playerAttribiute);
+		log("published player");
+	}
+	catch (const Exception& e) {
+		log(e.what());
+	}
 }
 
 //////////////////////////////////////////////////////

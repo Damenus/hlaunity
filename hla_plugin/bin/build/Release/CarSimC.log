@@ -1,9 +1,9 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/) contains files shared from another project (CarSimC.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  main.cpp
-     Creating library d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.lib and object d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.exp
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/) contains files shared from another project (CarSimC.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  myHlaFederate.cpp
+     Creating library D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.lib and object D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.exp
   Generating code
-  27 of 1011 functions ( 2.7%) were compiled, the rest were copied from previous compilation.
-    3 functions were new in current compilation
-    11 functions had inline decision re-evaluated but remain unchanged
+  4 of 1012 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    7 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  CarSimC.vcxproj -> d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.dll
+  CarSimC.vcxproj -> D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Release/hlaPlugin_x64.dll

@@ -18,11 +18,15 @@ public class mainScript : MonoBehaviour {
     [DllImport("hlaPlugin_x64")]
     public static extern void PublishPlayer();
 
+    [DllImport("hlaPlugin_x64")]
+    public static extern void SubscribeVehicle();
+
     // Use this for initialization
     void Start () {
         Connect();
         PublishPlayer();
-	}
+        SubscribeVehicle();
+    }
 	
 	// Update is called once per frame
 	void Update () {

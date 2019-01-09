@@ -1,5 +1,1 @@
-start 
-created rti ambassador 
-connected to RTI 
-Joined 
-get Handles 
+startint connecting

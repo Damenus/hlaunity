@@ -11,9 +11,9 @@ void Player::getAttribiuteSet(AttributeHandleSet *attributeSet)
 	}
 }
 
-void Player::InitClass(auto_ptr<rti1516e::RTIambassador> _rtiAmbassador)
+void Player::InitClass(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador)
 {
-	handle = _rtiAmbassador->getObjectClassHandle(L"Player");
+	handle = _rtiAmbassador->getObjectClassHandle(L"HLAobjectRoot.SimulationObject.Player");
 
 
 	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle,L"PosX")] = AttribiuteType::FLOAT_HLA;

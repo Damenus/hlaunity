@@ -5,7 +5,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommand>C:\Users\Damian Darczuk\Desktop\hlaunity-master\hlaunity-master\hla_plugin\bin\build\Debug\hla_console.exe</LocalDebuggerCommand>
+    <LocalDebuggerCommand>d:\Users\Teosl\Documents\ETI\projekt grupowy\_testDll\x64\Debug\testDll.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>
