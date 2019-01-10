@@ -18,6 +18,10 @@ DLLexport void Connect() {
 	
 	_myHlaFederate.connect(L"FOM_hla_rts_fps.xml", L"tutorial", L"hla_try", L"unity");
 }
+DLLexport void Disconnect() {
+
+	_myHlaFederate.disconnect();
+}
 
 DLLexport void SubscribeVehicle() {
 	_myHlaFederate.subscribeVehicle();
@@ -29,7 +33,18 @@ DLLexport void PublishVehicle() {
 	_myHlaFederate.publishVehicle();
 }
 DLLexport void PublishPlayer() {
-	_log << "Enter Publish Player" << endl;
-	_log.flush();
 	_myHlaFederate.publishPlayer();
+}
+DLLexport int CreateVehicle() {
+	return _myHlaFederate.createVehicle();
+}
+DLLexport int CreatePlayer() {
+	return _myHlaFederate.createPlayer();
+}
+
+DLLexport void UpdateVehicle() {
+
+}
+DLLexport void UpdatePlayer() {
+	
 }

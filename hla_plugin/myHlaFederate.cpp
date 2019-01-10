@@ -2,12 +2,24 @@
 
 
 
+int myHlaFederate::getId()
+{
+	idObjectCount+=1;
+	*_log << idObjectCount << endl;
+	_log->flush();
+	return idObjectCount;
+}
+
 myHlaFederate::myHlaFederate()
 {
+	idObjectCount = 0;
+	_connect = false;
 }
 
 myHlaFederate::myHlaFederate(ofstream *logFile)
 {
+	idObjectCount = 0;
+	_connect = false;
 	_log = logFile;
 }
 
@@ -34,6 +46,7 @@ void myHlaFederate::log(wstring logMessage)
 void myHlaFederate::connect(wstring FOM, wstring localSetting, wstring federationName, wstring federateName)
 {
 	log("startint connecting");
+	_federationName = federationName;
 	try {
 		shared_ptr<RTIambassadorFactory> rtiAmbassadorFactory(new RTIambassadorFactory());
 		_rtiAmbassador = rtiAmbassadorFactory->createRTIambassador();
@@ -104,7 +117,66 @@ void myHlaFederate::connect(wstring FOM, wstring localSetting, wstring federatio
 			++sequenceNumber;
 		}
 	}
+	_connect = true;
 	log("Joined ");
+}
+
+void myHlaFederate::disconnect()
+{
+	if (_connect) {
+		// When we disconnect from the federation execution we want to: 
+		//  - Cancel any pending ownership acquisitions
+		//  - Delete the objects created by us
+		//  - Divest any owned attributes
+		try {
+			_rtiAmbassador->resignFederationExecution(CANCEL_THEN_DELETE_THEN_DIVEST);
+
+			// we don't have to handle these exceptions
+		}
+		catch (const rti1516e::InvalidResignAction&) {
+		}
+		catch (const rti1516e::OwnershipAcquisitionPending&) {
+		}
+		catch (const rti1516e::FederateOwnsAttributes&) {
+		}
+		catch (const rti1516e::FederateNotExecutionMember&) {
+		}
+		catch (const rti1516e::NotConnected&) {
+		}
+		catch (const rti1516e::CallNotAllowedFromWithinCallback&) {
+		}
+		catch (const rti1516e::RTIinternalError&) {
+		}
+
+		// Just as we try and create the federation execution we will try and 
+		// destroy it since we cannot know if we're the last one to resign.
+		try {
+			_rtiAmbassador->destroyFederationExecution(_federationName);
+
+			// we don't have to handle these exceptions
+		}
+		catch (const rti1516e::FederatesCurrentlyJoined&) {
+		}
+		catch (const rti1516e::FederationExecutionDoesNotExist&) {
+		}
+		catch (const rti1516e::NotConnected&) {
+		}
+		catch (const rti1516e::RTIinternalError&) {
+		}
+
+		// Finally disconnect from the federation
+		try {
+			_rtiAmbassador->disconnect();
+
+			// we don't have to handle these exceptions
+		}
+		catch (const rti1516e::FederateIsExecutionMember&) {
+		}
+		catch (const rti1516e::CallNotAllowedFromWithinCallback&) {
+		}
+		catch (const rti1516e::RTIinternalError&) {
+		}
+	}
 }
 
 
@@ -149,17 +221,23 @@ void myHlaFederate::removePlayer(PlayerData playerData)
 int myHlaFederate::createVehicle()
 {
 	ObjectInstanceHandle theObject = _rtiAmbassador->registerObjectInstance(Vehicle::handle);
-	Vehicle *newVehicle = new Vehicle(theObject);
+	Vehicle *newVehicle = new Vehicle(theObject, getId());
 	_vehicles.push_back(*newVehicle);
+	log("created Vehicle:");
 	return newVehicle->ID;
 }
 
 int myHlaFederate::createPlayer()
 {
-	ObjectInstanceHandle theObject = _rtiAmbassador->registerObjectInstance(Player::handle);
-	Player *newPlayer = new Player(theObject);
-	_players.push_back(*newPlayer);
-	return newPlayer->ID;
+		log("create Player");
+		ObjectInstanceHandle theObject = _rtiAmbassador->registerObjectInstance(Player::handle);
+		Player newPlayer(theObject, getId());
+		_players.push_back(newPlayer);
+		log("created Player:");
+		*_log << newPlayer.ID << endl;
+		_log->flush();
+		return newPlayer.ID;
+
 }
 
 //////////////////////////////////////////////////////
@@ -281,11 +359,11 @@ void myHlaFederate::discoverObjectInstanceImpl(
 		FederateInternalError) {
 
 	if (theObjectClass == Vehicle::handle) {
-		Vehicle *newVehicle = new Vehicle(theObject);
+		Vehicle *newVehicle = new Vehicle(theObject, getId());
 		_vehicles.push_back(*newVehicle);
 	}
 	else if (theObjectClass == Player::handle) {
-		Player *newPlayer = new Player(theObject);
+		Player *newPlayer = new Player(theObject, getId());
 		_players.push_back(*newPlayer);
 	}
 	else {

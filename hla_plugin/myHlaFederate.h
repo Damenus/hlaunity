@@ -15,13 +15,18 @@ using namespace rti1516e;
 
 class myHlaFederate : public NullFederateAmbassador
 {
+private:
+	int idObjectCount;
+	int getId();
+	bool _connect;
+	wstring _federationName;
+	ofstream *_log;
+
 public:
 	shared_ptr<RTIambassador> _rtiAmbassador;
 
 	vector<Vehicle> _vehicles;
 	vector<Player> _players;
-
-	ofstream *_log;
 
 	myHlaFederate();
 	myHlaFederate(ofstream *logFile);
@@ -34,6 +39,7 @@ public:
 	// connect to rti//
 	///////////////////
 	void connect(wstring FOM, wstring localSetting, wstring federationName, wstring federateName);
+	void disconnect();
 
 
 	////////////////////////////////////////////////////

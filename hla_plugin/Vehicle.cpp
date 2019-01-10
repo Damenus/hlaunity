@@ -31,7 +31,7 @@ void Vehicle::InitClass(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador)
 	initiated = true;
 }
 
-Vehicle::Vehicle(ObjectInstanceHandle hlaInstanceHandle)
+Vehicle::Vehicle(ObjectInstanceHandle hlaInstanceHandle, int idSimulation)
 {
 	map<AttributeHandle, AttribiuteType>::iterator it;
 	it = attribiuteStaticCollection.begin();
@@ -56,7 +56,7 @@ Vehicle::Vehicle(ObjectInstanceHandle hlaInstanceHandle)
 	it++;
 	ptrAttribiuteCollection[it->first] = &velZ;
 
-	SimulationObject::SimulationObject(hlaInstanceHandle);
+	SimulationObject::SimulationObject(hlaInstanceHandle, idSimulation);
 }
 
 

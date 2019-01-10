@@ -11,11 +11,10 @@ using namespace rti1516e;
 class SimulationObject
 {
 public:
-	static int idCount;
 	static HLAfloat32BE floatDecoder;
 
 	SimulationObject();
-	SimulationObject(ObjectInstanceHandle hlaInstanceHandle);
+	SimulationObject(ObjectInstanceHandle hlaInstanceHandle, int idSimulation);
 	~SimulationObject();
 
 	map<AttributeHandle, void*> ptrAttribiuteCollection;

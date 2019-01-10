@@ -1,19 +1,16 @@
 #include "SimulationObject.h"
 
 
-
-int SimulationObject::idCount;
 HLAfloat32BE SimulationObject::floatDecoder;
 
 SimulationObject::SimulationObject()
 {
 }
 
-SimulationObject::SimulationObject(ObjectInstanceHandle hlaInstanceHandle)
+SimulationObject::SimulationObject(ObjectInstanceHandle hlaInstanceHandle, int idSimulation)
 {
+	ID = idSimulation;
 	this->hlaInstanceHandle = hlaInstanceHandle;
-	ID = idCount;
-	idCount++;
 	posX = 0.0;
 	posY = 0.0;
 	posZ = 0.0;
