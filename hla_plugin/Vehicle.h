@@ -15,7 +15,7 @@ public:
 	static void InitClass(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador);
 	
 
-	Vehicle(ObjectInstanceHandle hlaInstanceHandle, int idSimulation);
+	Vehicle(ObjectInstanceHandle hlaInstanceHandle);
 	~Vehicle();
 
 	void setValue(AttributeHandle attribiuteHandleToSet, VariableLengthData value);

@@ -1,24 +1,13 @@
 #include "myHlaFederate.h"
 
 
-
-int myHlaFederate::getId()
-{
-	idObjectCount+=1;
-	*_log << idObjectCount << endl;
-	_log->flush();
-	return idObjectCount;
-}
-
 myHlaFederate::myHlaFederate()
 {
-	idObjectCount = 0;
 	_connect = false;
 }
 
 myHlaFederate::myHlaFederate(ofstream *logFile)
 {
-	idObjectCount = 0;
 	_connect = false;
 	_log = logFile;
 }
@@ -39,6 +28,12 @@ void myHlaFederate::log(wstring logMessage)
 	*_log << logMessage.data() << endl;
 	_log->flush();
 }
+void myHlaFederate::log(string logMessage,int value)
+{
+	*_log << logMessage<<value << endl;
+	_log->flush();
+}
+
 
 ////////////////////
 // connect to rti//
@@ -220,22 +215,21 @@ void myHlaFederate::removePlayer(PlayerData playerData)
 
 int myHlaFederate::createVehicle()
 {
+	log("create Vehicle");
 	ObjectInstanceHandle theObject = _rtiAmbassador->registerObjectInstance(Vehicle::handle);
-	Vehicle *newVehicle = new Vehicle(theObject, getId());
-	_vehicles.push_back(*newVehicle);
-	log("created Vehicle:");
-	return newVehicle->ID;
+	Vehicle newVehicle(theObject);
+	_vehicles.push_back(newVehicle);
+	log("created Vehicle: ", newVehicle.ID);
+	return newVehicle.ID;
 }
 
 int myHlaFederate::createPlayer()
 {
 		log("create Player");
 		ObjectInstanceHandle theObject = _rtiAmbassador->registerObjectInstance(Player::handle);
-		Player newPlayer(theObject, getId());
+		Player newPlayer(theObject);
 		_players.push_back(newPlayer);
-		log("created Player:");
-		*_log << newPlayer.ID << endl;
-		_log->flush();
+		log("created Player: ",newPlayer.ID);
 		return newPlayer.ID;
 
 }
@@ -359,11 +353,11 @@ void myHlaFederate::discoverObjectInstanceImpl(
 		FederateInternalError) {
 
 	if (theObjectClass == Vehicle::handle) {
-		Vehicle *newVehicle = new Vehicle(theObject, getId());
+		Vehicle *newVehicle = new Vehicle(theObject);
 		_vehicles.push_back(*newVehicle);
 	}
 	else if (theObjectClass == Player::handle) {
-		Player *newPlayer = new Player(theObject, getId());
+		Player *newPlayer = new Player(theObject);
 		_players.push_back(*newPlayer);
 	}
 	else {

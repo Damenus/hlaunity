@@ -1,7 +1,7 @@
 startint connecting
 created rti ambassador 
 connected to RTI 
-0000000039640D50
+000000005AF187C0
 after destroy federation
 created federation execution
 Joined 
@@ -12,18 +12,10 @@ Subscribe vehicle
 Initialiazd vehicle
 Subscribed vehicle
 create Player
-1
-created Player:
-1
+created Player: 0
 create Player
-2
-created Player:
-2
+created Player: 1
 create Player
-3
-created Player:
-3
+created Player: 2
 create Player
-4
-created Player:
-4
+created Player: 3

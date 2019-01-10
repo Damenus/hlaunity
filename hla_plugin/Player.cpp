@@ -31,7 +31,7 @@ void Player::InitClass(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador)
 	initiated = true;
 }
 
-Player::Player(ObjectInstanceHandle hlaInstanceHandle, int idSimulation) : SimulationObject(hlaInstanceHandle,idSimulation)
+Player::Player(ObjectInstanceHandle hlaInstanceHandle) : SimulationObject(hlaInstanceHandle)
 {
 	map<AttributeHandle, AttribiuteType>::iterator it;
 	it = attribiuteStaticCollection.begin();
@@ -55,7 +55,6 @@ Player::Player(ObjectInstanceHandle hlaInstanceHandle, int idSimulation) : Simul
 	ptrAttribiuteCollection[it->first] = &velY;
 	it++;
 	ptrAttribiuteCollection[it->first] = &velZ;
-	SimulationObject::SimulationObject(hlaInstanceHandle, idSimulation);
 }
 
 

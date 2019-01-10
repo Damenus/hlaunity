@@ -2,14 +2,16 @@
 
 
 HLAfloat32BE SimulationObject::floatDecoder;
+int SimulationObject::idCount = 0;
 
 SimulationObject::SimulationObject()
 {
 }
 
-SimulationObject::SimulationObject(ObjectInstanceHandle hlaInstanceHandle, int idSimulation)
+SimulationObject::SimulationObject(ObjectInstanceHandle hlaInstanceHandle)
 {
-	ID = idSimulation;
+	ID = idCount;
+	idCount++;
 	this->hlaInstanceHandle = hlaInstanceHandle;
 	posX = 0.0;
 	posY = 0.0;

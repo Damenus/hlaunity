@@ -12,9 +12,10 @@ class SimulationObject
 {
 public:
 	static HLAfloat32BE floatDecoder;
+	static int idCount;
 
 	SimulationObject();
-	SimulationObject(ObjectInstanceHandle hlaInstanceHandle, int idSimulation);
+	SimulationObject(ObjectInstanceHandle hlaInstanceHandle);
 	~SimulationObject();
 
 	map<AttributeHandle, void*> ptrAttribiuteCollection;

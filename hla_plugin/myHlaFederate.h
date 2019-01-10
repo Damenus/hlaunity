@@ -16,8 +16,6 @@ using namespace rti1516e;
 class myHlaFederate : public NullFederateAmbassador
 {
 private:
-	int idObjectCount;
-	int getId();
 	bool _connect;
 	wstring _federationName;
 	ofstream *_log;
@@ -34,6 +32,7 @@ public:
 
 	void log(string logMessage);
 	void log(wstring logMessage);
+	void log(string logMessage, int value);
 
 	////////////////////
 	// connect to rti//

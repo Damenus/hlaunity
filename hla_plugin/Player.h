@@ -12,7 +12,7 @@ public:
 	static void getAttribiuteSet(AttributeHandleSet *attributeSet);
 	static void InitClass(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador);
 
-	Player(ObjectInstanceHandle hlaInstanceHandle, int idSimulation);
+	Player(ObjectInstanceHandle hlaInstanceHandle);
 	~Player();
 
 	virtual void setValue(AttributeHandle attribiuteHandleToSet, VariableLengthData value);
