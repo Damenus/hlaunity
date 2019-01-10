@@ -19,12 +19,13 @@ private:
 	bool _connect;
 	wstring _federationName;
 	ofstream *_log;
-
-public:
 	shared_ptr<RTIambassador> _rtiAmbassador;
 
 	vector<Vehicle> _vehicles;
 	vector<Player> _players;
+
+public:
+
 
 	myHlaFederate();
 	myHlaFederate(ofstream *logFile);
@@ -34,11 +35,18 @@ public:
 	void log(wstring logMessage);
 	void log(string logMessage, int value);
 
+
 	////////////////////
 	// connect to rti//
 	///////////////////
 	void connect(wstring FOM, wstring localSetting, wstring federationName, wstring federateName);
 	void disconnect();
+
+	///////////////////////////////////////////////////////
+	//  Implementation methods to get objects collection //
+	///////////////////////////////////////////////////////
+	vector<Vehicle> getVehicles();
+	vector<Player> getPlayers();
 
 
 	////////////////////////////////////////////////////

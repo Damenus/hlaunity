@@ -174,6 +174,16 @@ void myHlaFederate::disconnect()
 	}
 }
 
+vector<Vehicle> myHlaFederate::getVehicles()
+{
+	return _vehicles;
+}
+
+vector<Player> myHlaFederate::getPlayers()
+{
+	return _players;
+}
+
 
 ////////////////////////////////////////////////////
 //  Implementation methods to remove object event //
