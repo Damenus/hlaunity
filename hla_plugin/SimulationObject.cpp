@@ -50,7 +50,7 @@ void SimulationObject::getAttribiuteMap(AttributeHandleSet const & theAttributes
 void SimulationObject::getAttribiuteMap(AttributeHandleValueMap * attributeMap)
 {
 	for (map<AttributeHandle, void*>::iterator itLocal = ptrAttribiuteCollection.begin(); itLocal != ptrAttribiuteCollection.end(); ++itLocal) {
-		attributeMap->at(itLocal->first) = getValue(itLocal->first);
+		attributeMap->insert(pair<AttributeHandle, VariableLengthData>(itLocal->first, getValue(itLocal->first)));
 	}
 }
 

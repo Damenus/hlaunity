@@ -42,9 +42,10 @@ DLLexport int CreatePlayer() {
 	return _myHlaFederate.createPlayer();
 }
 
-DLLexport void UpdateVehicle() {
+DLLexport void UpdateVehicle(VehicleData vehicleData) {
+	_myHlaFederate.updateVehicle(vehicleData);
 
 }
-DLLexport void UpdatePlayer() {
-	
+DLLexport void UpdatePlayer(PlayerData playerData) {
+	_myHlaFederate.updatePlayer(playerData);	
 }

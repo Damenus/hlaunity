@@ -309,6 +309,7 @@ void myHlaFederate::subscribePlayer()
 
 void myHlaFederate::updateVehicle(VehicleData vehicleData)
 {
+	log("update vehicle: ", vehicleData.ID);
 	vector<Vehicle>::iterator it;
 	it = std::find_if(_vehicles.begin(), _vehicles.end(), [&](Vehicle const& obj) {
 		return obj.ID == vehicleData.ID;
@@ -319,6 +320,7 @@ void myHlaFederate::updateVehicle(VehicleData vehicleData)
 		AttributeHandleValueMap attributeMap;
 		it->getAttribiuteMap(&attributeMap);
 		_rtiAmbassador->updateAttributeValues(it->hlaInstanceHandle, attributeMap, VariableLengthData());
+		log("updated vehicle");
 	}
 	else {
 		log("don't find any object in players - update vehicle");
@@ -327,16 +329,17 @@ void myHlaFederate::updateVehicle(VehicleData vehicleData)
 
 void myHlaFederate::updatePlayer(PlayerData playerData)
 {
+	log("update player: ",playerData.ID);
 	vector<Player>::iterator it;
 	it = std::find_if(_players.begin(), _players.end(), [&](Player const& obj) {
 		return obj.ID == playerData.ID;
 	});
-
 	if (it != _players.end()) {
 		it->setPlayerData(playerData);
 		AttributeHandleValueMap attributeMap;
 		it->getAttribiuteMap(&attributeMap);
 		_rtiAmbassador->updateAttributeValues(it->hlaInstanceHandle, attributeMap, VariableLengthData());
+		log("updated player");
 	}
 	else {
 		log("don't find any object in players - update player");
@@ -353,12 +356,12 @@ void myHlaFederate::discoverObjectInstanceImpl(
 		FederateInternalError) {
 
 	if (theObjectClass == Vehicle::handle) {
-		Vehicle *newVehicle = new Vehicle(theObject);
-		_vehicles.push_back(*newVehicle);
+		Vehicle newVehicle(theObject);
+		_vehicles.push_back(newVehicle);
 	}
 	else if (theObjectClass == Player::handle) {
-		Player *newPlayer = new Player(theObject);
-		_players.push_back(*newPlayer);
+		Player newPlayer(theObject);
+		_players.push_back(newPlayer);
 	}
 	else {
 		log("Don't recognize object class in discover");

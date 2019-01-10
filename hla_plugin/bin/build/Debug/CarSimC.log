@@ -1,4 +1,4 @@
-﻿  main.cpp
+﻿  SimulationObject.cpp
   myHlaFederate.cpp
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
      Creating library D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.lib and object D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.exp
