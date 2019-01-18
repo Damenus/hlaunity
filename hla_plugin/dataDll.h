@@ -30,3 +30,16 @@ struct HLAPLUGIN_API PlayerData {
 	float velY;
 	float velZ;
 };
+
+struct HLAPLUGIN_API SimulationObjectData {
+	int ID;
+	float posX;
+	float posY;
+	float posZ;
+	float rotX;
+	float rotY;
+	float rotZ;
+	float velX;
+	float velY;
+	float velZ;
+};

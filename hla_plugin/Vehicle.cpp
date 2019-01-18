@@ -1,108 +1,89 @@
 #include "Vehicle.h"
 
-ObjectClassHandle Vehicle::handle;
-map<AttributeHandle, AttribiuteType> Vehicle::attribiuteStaticCollection;
+ObjectClassHandle Vehicle::vehicleClassHandle;
 bool Vehicle::initiated=false;
 
-void Vehicle::getAttribiuteSet(AttributeHandleSet  *attributeSet)
+void Vehicle::init(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador)
 {
-	for (map<AttributeHandle, AttribiuteType>::iterator itLocal = attribiuteStaticCollection.begin(); itLocal != attribiuteStaticCollection.end(); ++itLocal) {
-		attributeSet->insert(itLocal->first);
+	Debug::Log("Init Vehicle");
+	if (!SimulationObject::initied) {
+		SimulationObject::init(_rtiAmbassador);
 	}
-}
-
-void Vehicle::InitClass(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador)
-{
-	handle = _rtiAmbassador->getObjectClassHandle(L"HLAobjectRoot.SimulationObject.Vehicle");
-
-
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosX")] = AttribiuteType::FLOAT_HLA;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosY")] = AttribiuteType::FLOAT_HLA;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"PosZ")] = AttribiuteType::FLOAT_HLA;
-
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotX")] = AttribiuteType::FLOAT_HLA;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotY")] = AttribiuteType::FLOAT_HLA;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"RotZ")] = AttribiuteType::FLOAT_HLA;
-
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelX")] = AttribiuteType::FLOAT_HLA;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelY")] = AttribiuteType::FLOAT_HLA;
-	attribiuteStaticCollection[_rtiAmbassador->getAttributeHandle(handle, L"VelZ")] = AttribiuteType::FLOAT_HLA;
-
+	vehicleClassHandle = _rtiAmbassador->getObjectClassHandle(L"HLAobjectRoot.SimulationObject.Vehicle");
 	initiated = true;
 }
-
 Vehicle::Vehicle(ObjectInstanceHandle hlaInstanceHandle) :SimulationObject(hlaInstanceHandle)
 {
-	map<AttributeHandle, AttribiuteType>::iterator it;
-	it = attribiuteStaticCollection.begin();
-
-	ptrAttribiuteCollection[it->first] = &posX;
-	it++;
-	ptrAttribiuteCollection[it->first] = &posY;
-	it++;
-	ptrAttribiuteCollection[it->first] = &posZ;
-	it++;
-
-	ptrAttribiuteCollection[it->first] = &rotX;
-	it++;
-	ptrAttribiuteCollection[it->first] = &rotY;
-	it++;
-	ptrAttribiuteCollection[it->first] = &rotZ;
-	it++;
-
-	ptrAttribiuteCollection[it->first] = &velX;
-	it++;
-	ptrAttribiuteCollection[it->first] = &velY;
-	it++;
-	ptrAttribiuteCollection[it->first] = &velZ;
+	Debug::Log("create instance Vehicle");
 }
-
 
 Vehicle::~Vehicle()
 {
 }
-void Vehicle::setValue(AttributeHandle attribiuteHandleToSet, VariableLengthData value)
+void Vehicle::getAttribiuteSet(AttributeHandleSet  *attributeSet)
 {
-	SimulationObject::setValue(&attribiuteStaticCollection, attribiuteHandleToSet, value);
+	Debug::Log("get attribiute set Vehicle");
+	SimulationObject::getAttribiuteSet(attributeSet);
 }
 
-VariableLengthData Vehicle::getValue(AttributeHandle attribiuteHandleToGet)
+void Vehicle::updateAttribiutes(AttributeHandleValueMap const & theAttributeValues)
 {
-	return SimulationObject::getValue(&attribiuteStaticCollection, attribiuteHandleToGet);
+	Debug::Log("update attribiutes Vehicle");
+	SimulationObject::updateAttribiutes(theAttributeValues);
+}
+
+void Vehicle::getAttribiuteMap(AttributeHandleSet const & theAttributes, AttributeHandleValueMap * attributeMap)
+{
+	Debug::Log("get attribiutes Vehicle");
+	SimulationObject::getAttribiuteMap(theAttributes, attributeMap);
+}
+
+void Vehicle::getAttribiuteMap(AttributeHandleValueMap * attributeMap)
+{
+	Debug::Log("get attribiutes Vehicle");
+	SimulationObject::getAttribiuteMap(attributeMap);
 }
 
 void Vehicle::setVehicleData(VehicleData vehicleData)
 {
-	posX = vehicleData.posX;
-	posY = vehicleData.posY;
-	posZ = vehicleData.posZ;
+	Debug::Log("set vehicle Data");
+	SimulationObjectData simulationObjectData;
 
-	rotX = vehicleData.rotX;
-	rotY = vehicleData.rotY;
-	rotZ = vehicleData.rotZ;
+	simulationObjectData.posX = vehicleData.posX;
+	simulationObjectData.posY = vehicleData.posY;
+	simulationObjectData.posZ = vehicleData.posZ;
 
-	velX = vehicleData.velX;
-	velY = vehicleData.velY;
-	velZ = vehicleData.velZ;
+	simulationObjectData.rotX = vehicleData.rotX;
+	simulationObjectData.rotY = vehicleData.rotY;
+	simulationObjectData.rotZ = vehicleData.rotZ;
+
+	simulationObjectData.velX = vehicleData.velX;
+	simulationObjectData.velY = vehicleData.velY;
+	simulationObjectData.velZ = vehicleData.velZ;
+	SimulationObject::setSimulationObject(simulationObjectData);
+
+	Debug::_log << "vehicle: ID: " << ID << " pozX: " << posX << " pozY: " << posY << " pozZ: " << posZ << " rotX: " << rotX << " rotY: " << rotY << " rotZ: " << rotZ << " velZ: " << velZ << " velY: " << velY << " velZ: " << velZ << endl;
 }
 
 VehicleData Vehicle::getVehicleData()
 {
+	Debug::Log("get vehicle Data");
 	VehicleData toReturn;
+	SimulationObjectData simulationObjectData = SimulationObject::getSimulationObjectData();
 
-	toReturn.ID = ID;
+	toReturn.ID = simulationObjectData.ID;
 
-	toReturn.posX = posX;
-	toReturn.posY = posY;
-	toReturn.posZ = posZ;
+	toReturn.posX = simulationObjectData.posX;
+	toReturn.posY = simulationObjectData.posY;
+	toReturn.posZ = simulationObjectData.posZ;
 
-	toReturn.rotX = rotX;
-	toReturn.rotY = rotY;
-	toReturn.rotZ = rotZ;
+	toReturn.rotX = simulationObjectData.rotX;
+	toReturn.rotY = simulationObjectData.rotY;
+	toReturn.rotZ = simulationObjectData.rotZ;
 
-	toReturn.velX = velX;
-	toReturn.velY = velY;
-	toReturn.velZ = velZ;
+	toReturn.velX = simulationObjectData.velX;
+	toReturn.velY = simulationObjectData.velY;
+	toReturn.velZ = simulationObjectData.velZ;
 
 	return toReturn;
 }

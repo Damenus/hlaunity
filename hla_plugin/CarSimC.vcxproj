@@ -19,14 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AttribiuteType.h" />
     <ClInclude Include="dataDll.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="myHlaFederate.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SimulationObject.h" />
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="myHlaFederate.cpp" />
     <ClCompile Include="Player.cpp" />

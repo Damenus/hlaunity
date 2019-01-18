@@ -1,25 +1,22 @@
 #define DLLexport extern "C"  __declspec(dllexport)
-#include <iostream>
 #include <RTI/RTIambassadorFactory.h>
-#include <fstream>
 #include <RTI/RTIambassador.h>
 #include <Windows.h>
 #include "myHlaFederate.h"
-
+#include "Debug.h"
 using namespace std;
 
 myHlaFederate _myHlaFederate;
-ofstream _log;
 
 DLLexport void Connect() {
 
-	_log.open("LOG_pluginHLA.txt");
-	_myHlaFederate = myHlaFederate(&_log);
+	Debug::init("LOG_pluginHLA.txt");
+	_myHlaFederate = myHlaFederate();
 	
 	_myHlaFederate.connect(L"FOM_hla_rts_fps.xml", L"tutorial", L"hla_try", L"unity");
 }
 DLLexport void Disconnect() {
-
+	Debug::close();
 	_myHlaFederate.disconnect();
 }
 
@@ -47,6 +44,7 @@ DLLexport void UpdateVehicle(VehicleData vehicleData) {
 
 }
 DLLexport void UpdatePlayer(PlayerData playerData) {
+	Debug::_log<< "update playerData: ID" << playerData.ID << " pozX: " << playerData.posX << " pozY: " << playerData.posY << " pozZ: " << playerData.posZ << " rotX: " << playerData.rotX << " rotY: " << playerData.rotY << " rotZ: " << playerData.rotZ << " velZ: " << playerData.velZ << " velY: " << playerData.velY << " velZ: "<< playerData.velZ<<endl;
 	_myHlaFederate.updatePlayer(playerData);	
 }
 
@@ -58,6 +56,7 @@ DLLexport VehicleData* GetVehicles(int &size) {
 	for (int i=0;i<size;i++)
 	{
 		dataToReturn[i] = data[i].getVehicleData();
+		Debug::_log << "Getvehicles main: ID: " << dataToReturn[i].ID << " pozX: " << dataToReturn[i].posX << " pozY: " << dataToReturn[i].posY << " pozZ: " << dataToReturn[i].posZ << " rotX: " << dataToReturn[i].rotX << " rotY: " << dataToReturn[i].rotY << " rotZ: " << dataToReturn[i].rotZ << " velZ: " << dataToReturn[i].velZ << " velY: " << dataToReturn[i].velY << " velZ: " << dataToReturn[i].velZ << endl;
 	}
 	return dataToReturn;
 }

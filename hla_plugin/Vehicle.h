@@ -8,18 +8,17 @@ class Vehicle :
 	public SimulationObject
 {
 public:
-	static ObjectClassHandle handle;
-	static map<AttributeHandle, AttribiuteType> attribiuteStaticCollection;
+	static ObjectClassHandle vehicleClassHandle;
 	static bool initiated;
+	static void init(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador);
 	static void getAttribiuteSet(AttributeHandleSet *attributeSet);
-	static void InitClass(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador);
-	
+
+	void updateAttribiutes(AttributeHandleValueMap const & theAttributeValues);
+	void getAttribiuteMap(AttributeHandleSet const & theAttributes, AttributeHandleValueMap* attributeMap);
+	void getAttribiuteMap(AttributeHandleValueMap* attributeMap);
 
 	Vehicle(ObjectInstanceHandle hlaInstanceHandle);
 	~Vehicle();
-
-	void setValue(AttributeHandle attribiuteHandleToSet, VariableLengthData value);
-	VariableLengthData getValue(AttributeHandle attribiuteHandleToGet);
 
 	void setVehicleData(VehicleData vehicleData);
 	VehicleData getVehicleData();

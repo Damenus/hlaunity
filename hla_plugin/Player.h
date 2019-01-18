@@ -1,22 +1,23 @@
 #pragma once
 #include "SimulationObject.h"
 #include "dataDll.h"
+#include "Debug.h"
 
 class Player :
 	public SimulationObject
 {
 public:
-	static ObjectClassHandle handle;
-	static map<AttributeHandle, AttribiuteType> attribiuteStaticCollection;
+	static ObjectClassHandle playerClassHandle;
 	static bool initiated;
+	static void init(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador);
 	static void getAttribiuteSet(AttributeHandleSet *attributeSet);
-	static void InitClass(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador);
+
+	void updateAttribiutes(AttributeHandleValueMap const & theAttributeValues);
+	void getAttribiuteMap(AttributeHandleSet const & theAttributes, AttributeHandleValueMap* attributeMap);
+	void getAttribiuteMap(AttributeHandleValueMap* attributeMap);
 
 	Player(ObjectInstanceHandle hlaInstanceHandle);
 	~Player();
-
-	virtual void setValue(AttributeHandle attribiuteHandleToSet, VariableLengthData value);
-	virtual VariableLengthData getValue(AttributeHandle attribiuteHandleToGet);
 
 	void setPlayerData(PlayerData playerData);
 	PlayerData getPlayerData();

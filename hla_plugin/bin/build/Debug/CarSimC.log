@@ -1,8 +1,6 @@
-﻿  Vehicle.cpp
-  myHlaFederate.cpp
+﻿  SimulationObject.cpp
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
-     Creating library D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.lib and object D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.exp
+     Creating library d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.lib and object d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.exp
   Generating code
-d:\users\teosl\documents\eti\projekt grupowy\_program\hlaunity\hla_plugin\simulationobject.cpp(77): warning C4715: 'SimulationObject::getValue': not all control paths return a value
   Finished generating code
-  CarSimC.vcxproj -> D:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.dll
+  CarSimC.vcxproj -> d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.dll

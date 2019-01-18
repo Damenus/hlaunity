@@ -18,7 +18,7 @@ public struct PlayerData {
 
     public override String ToString()
     {
-        return "playerData: ID" + ID + " pozX: " + posX + " pozY: " + posY + " pozZ: " + posZ;
+        return "playerData: ID" + ID + " pozX: " + posX + " pozY: " + posY + " pozZ: " + posZ + " rotX: " + rotX + " rotY: " + rotY + " rotZ: " + rotZ + " velZ: " + velZ + " velY: " + velY + " velZ: " + velZ;
     }
 };
 
@@ -37,7 +37,7 @@ public struct VehicleData
 
     public override String ToString()
     {
-        return "vehicleData: ID" + ID + " pozX: " + posX + " pozY: " + posY + " pozZ: " + posZ;
+        return "vehicleData: ID" + ID + " pozX: " + posX + " pozY: " + posY + " pozZ: " + posZ + " rotX: " + rotX + " rotY: " + rotY + " rotZ: " + rotZ + " velZ: " + velZ + " velY: " + velY + " velZ: " + velZ;
     }
 };
 
@@ -65,40 +65,42 @@ public class mainScript : MonoBehaviour {
     public static extern IntPtr GetVehicles(ref int size);
 
     PlayerData playerData;
-
+    Rigidbody playerRigbody;
+    public GameObject player;
+    public GameObject tank;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        playerRigbody = player.GetComponent<Rigidbody>();
         Connect();
         PublishPlayer();
-        PublishVehicle();
         SubscribeVehicle();
 
         int id;
 
         playerData = new PlayerData();
-        id = CreatePlayer();
+        id= CreatePlayer();
         Debug.Log("player id: "+id);
         playerData.ID = id;
 
-        id = CreateVehicle();
-        Debug.Log("vehicle id: " + id);
     }
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	    playerData.posX = 0;
-	    playerData.posY = 0;
-	    playerData.posZ = 0;
+	    playerData.posX = player.transform.position.x;
+	    playerData.posY = player.transform.position.y;
+	    playerData.posZ = player.transform.position.z;
 
-	    playerData.rotX = 0;
-	    playerData.rotY = 0;
-	    playerData.rotZ = 0;
+	    playerData.rotX = player.transform.eulerAngles.x;
+	    playerData.rotY = player.transform.eulerAngles.y;
+	    playerData.rotZ = player.transform.eulerAngles.z;
 
-	    playerData.velX = 0;
-	    playerData.velY = 0;
-	    playerData.velZ = 0;
+	    playerData.velX = playerRigbody.velocity.x;
+	    playerData.velY = playerRigbody.velocity.y;
+	    playerData.velZ = playerRigbody.velocity.z;
 
+        Debug.Log(playerData);
         UpdatePlayer(playerData);
 
 
@@ -107,6 +109,7 @@ public class mainScript : MonoBehaviour {
 	    IntPtr dataPtr = GetVehicles(ref size);
 	    if (size > 0)
 	    {
+            Debug.Log("rozmiar: "+size);
 	        VehicleData[] dataFromHla = new VehicleData[size];
 
 	        int offset = 0;
@@ -116,6 +119,9 @@ public class mainScript : MonoBehaviour {
 	            dataFromHla[i] = (VehicleData)Marshal.PtrToStructure(new IntPtr(dataPtr.ToInt32() + offset), typeof(VehicleData));
 	            Debug.Log(dataFromHla[i]);
             }
+
+	        tank.transform.position=new Vector3(dataFromHla[0].posX,dataFromHla[0].posY,dataFromHla[0].posZ);
+	        tank.transform.rotation = Quaternion.Euler(dataFromHla[0].rotX, dataFromHla[0].rotY, dataFromHla[0].rotZ);
         }	    
 	}
     void OnDestroy()

@@ -7,8 +7,8 @@
 #include "Vehicle.h"
 #include "Player.h"
 #include <algorithm>
-#include <fstream>
 #include <memory>
+#include "Debug.h" 
 
 using namespace std;
 using namespace rti1516e;
@@ -18,7 +18,6 @@ class myHlaFederate : public NullFederateAmbassador
 private:
 	bool _connect;
 	wstring _federationName;
-	ofstream *_log;
 	shared_ptr<RTIambassador> _rtiAmbassador;
 
 	vector<Vehicle> _vehicles;
@@ -28,12 +27,7 @@ public:
 
 
 	myHlaFederate();
-	myHlaFederate(ofstream *logFile);
 	~myHlaFederate();
-
-	void log(string logMessage);
-	void log(wstring logMessage);
-	void log(string logMessage, int value);
 
 
 	////////////////////
@@ -254,10 +248,10 @@ public:
 	//  provide  //
 	//////////////
 	 void provideAttributeValueUpdate(
-		ObjectInstanceHandle theObject,
-		AttributeHandleSet const & theAttributes,
-		VariableLengthData const & theUserSuppliedTag)
-		throw (
-			FederateInternalError);
+		 ObjectInstanceHandle theObject,
+		 AttributeHandleSet const & theAttributes,
+		 VariableLengthData const & theUserSuppliedTag)
+		 throw (
+			 FederateInternalError);
 };
 
