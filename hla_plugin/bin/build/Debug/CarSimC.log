@@ -1,4 +1,7 @@
-﻿  SimulationObject.cpp
+﻿  main.cpp
+d:\users\teosl\documents\eti\projekt grupowy\_program\hlaunity\hla_plugin\main.cpp(58): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\users\teosl\documents\eti\projekt grupowy\_program\hlaunity\hla_plugin\main.cpp(70): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\users\teosl\documents\eti\projekt grupowy\_program\hlaunity\hla_plugin\main.cpp(85): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
      Creating library d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.lib and object d:\Users\Teosl\Documents\ETI\projekt grupowy\_program\hlaunity\hla_plugin\/bin/build/Debug/hlaPlugin_x64.exp
   Generating code

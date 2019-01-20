@@ -31,7 +31,7 @@ public:
 
 	static bool initied;
 
-	static void init(shared_ptr<rti1516e::RTIambassador> _rtiAmbassador);
+	static void init(shared_ptr<RTIambassador> _rtiAmbassador);
 	static void getAttribiuteSet(AttributeHandleSet *attributeSet);
 
 	SimulationObject();

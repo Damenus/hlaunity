@@ -6,6 +6,7 @@
 #include <RTI/RTIambassadorFactory.h>
 #include "Vehicle.h"
 #include "Player.h"
+#include "shotInteraction.h"
 #include <algorithm>
 #include <memory>
 #include "Debug.h" 
@@ -22,6 +23,7 @@ private:
 
 	vector<Vehicle> _vehicles;
 	vector<Player> _players;
+	vector<shotInteraction> _shots;
 
 public:
 
@@ -41,7 +43,7 @@ public:
 	///////////////////////////////////////////////////////
 	vector<Vehicle> getVehicles();
 	vector<Player> getPlayers();
-
+	vector<shotInteraction> getShots();
 
 	////////////////////////////////////////////////////
 	//  Implementation methods to remove object event //
@@ -60,18 +62,21 @@ public:
 	//////////////////////////////////////////////////////
 	void publishVehicle();
 	void publishPlayer();
+	void publishShot();
 
 	//////////////////////////////////////////////////////
 	//  Implementation methods to subscrib object event//
 	/////////////////////////////////////////////////////
 	void subscribeVehicle();
 	void subscribePlayer();
+	void subscribeShot();
 
 	///////////////////////////////////////////////////
 	//  Implementation methods to send update event //
 	//////////////////////////////////////////////////
 	void updateVehicle(VehicleData vehicleData);
 	void updatePlayer(PlayerData playerData);
+	void sentShot(ShotData shotData);
 
 	////////////////////////////////////////////////////////
 	//  Implementation methods to handle discovery event //

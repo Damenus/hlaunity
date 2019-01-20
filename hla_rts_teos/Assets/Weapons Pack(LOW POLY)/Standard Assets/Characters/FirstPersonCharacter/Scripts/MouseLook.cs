@@ -19,22 +19,25 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Quaternion m_CharacterTargetRot;
         private Quaternion m_CameraTargetRot;
+        private Quaternion m_spineTargetRot;
         private bool m_cursorIsLocked = true;
 
-        public void Init(Transform character, Transform camera)
+        public void Init(Transform character, Transform camera, Transform spine)
         {
             m_CharacterTargetRot = character.localRotation;
             m_CameraTargetRot = camera.localRotation;
+            m_spineTargetRot = spine.localRotation;
         }
 
 
-        public void LookRotation(Transform character, Transform camera)
+        public void LookRotation(Transform character,Transform spine, Transform camera)
         {
             float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
             float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
 
             m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
             m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);
+            m_spineTargetRot *= Quaternion.Euler(0,0,xRot);
 
             if(clampVerticalRotation)
                 m_CameraTargetRot = ClampRotationAroundXAxis (m_CameraTargetRot);
@@ -45,11 +48,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     smoothTime * Time.deltaTime);
                 camera.localRotation = Quaternion.Slerp (camera.localRotation, m_CameraTargetRot,
                     smoothTime * Time.deltaTime);
+                spine.localRotation = Quaternion.Slerp(spine.localRotation, m_spineTargetRot,
+                    smoothTime * Time.deltaTime);
             }
             else
             {
                 character.localRotation = m_CharacterTargetRot;
                 camera.localRotation = m_CameraTargetRot;
+                spine.localRotation = m_spineTargetRot;
             }
 
             UpdateCursorLock();

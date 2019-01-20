@@ -162,6 +162,13 @@ vector<Player> myHlaFederate::getPlayers()
 	return _players;
 }
 
+vector<shotInteraction> myHlaFederate::getShots()
+{
+	vector<shotInteraction> toReturn = _shots;
+	_shots.clear();
+	return toReturn;
+}
+
 
 ////////////////////////////////////////////////////
 //  Implementation methods to remove object event //
@@ -260,6 +267,22 @@ void myHlaFederate::publishPlayer()
 	}
 }
 
+void myHlaFederate::publishShot()
+{
+	try {
+		Debug::Log("publishe shot");
+		if (!shotInteraction::initied) {
+			shotInteraction::init(_rtiAmbassador);
+			Debug::Log("Initialiazd shot");
+		}
+		_rtiAmbassador->publishInteractionClass(shotInteraction::shotClassHandle);
+		Debug::Log("published shot");
+	}
+	catch (const Exception& e) {
+		Debug::Log(e.what());
+	}
+}
+
 //////////////////////////////////////////////////////
 //  Implementation methods to subscrib object event//
 /////////////////////////////////////////////////////
@@ -289,6 +312,22 @@ void myHlaFederate::subscribePlayer()
 
 	_rtiAmbassador->subscribeObjectClassAttributes(Player::playerClassHandle, playerAttribiute);
 	Debug::Log("Subscribe player");
+}
+
+void myHlaFederate::subscribeShot()
+{
+	try {
+		Debug::Log("subscribe shot");
+		if (!shotInteraction::initied) {
+			shotInteraction::init(_rtiAmbassador);
+			Debug::Log("Initialiazd shot");
+		}
+		_rtiAmbassador->subscribeInteractionClass(shotInteraction::shotClassHandle);
+		Debug::Log("subscribe shot");
+	}
+	catch (const Exception& e) {
+		Debug::Log(e.what());
+	}
 }
 
 
@@ -334,6 +373,14 @@ void myHlaFederate::updatePlayer(PlayerData playerData)
 	else {
 		Debug::Log("don't find any object in players - update player");
 	}
+}
+
+void myHlaFederate::sentShot(ShotData shotData)
+{
+	shotInteraction tmp = shotInteraction(shotData);
+	ParameterHandleValueMap toSend;
+	tmp.getParameterMap(&toSend);
+	_rtiAmbassador->sendInteraction(shotInteraction::shotClassHandle, toSend, VariableLengthData());
 }
 
 ////////////////////////////////////////////////////////
@@ -414,7 +461,13 @@ void myHlaFederate::receiveInteractionImpl(
 	ParameterHandleValueMap const & theParameterValues)
 	throw (
 		FederateInternalError) {
-	Debug::Log("receive interaction but nothing doing with it");
+	Debug::Log("receive interaction ");
+	if (theInteraction == shotInteraction::shotClassHandle) {
+		_shots.push_back(shotInteraction(theParameterValues));
+	}
+	else {
+		Debug::Log("don't recognize interaction ");
+	}
 }
 
 ////////////////////////////////////////////////////////////

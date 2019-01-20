@@ -140,6 +140,43 @@
             </objectClass>
         </objectClass>
     </objects>
+    <interactions>
+        <interactionClass>
+            <name>HLAinteractionRoot</name>
+            <interactionClass>
+                <name>Shot</name>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions/>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics>Sent shot event</semantics>
+                <parameter>
+                    <name>ShotPosX</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>ShotPosY</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>ShotPosZ</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>HitPosX</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>HitPosY</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>HitPosZ</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+            </interactionClass>
+        </interactionClass>
+    </interactions>
     <switches>
         <autoProvide isEnabled="true"/>
         <conveyRegionDesignatorSets isEnabled="false"/>

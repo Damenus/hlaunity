@@ -43,3 +43,12 @@ struct HLAPLUGIN_API SimulationObjectData {
 	float velY;
 	float velZ;
 };
+
+struct HLAPLUGIN_API ShotData {
+	float shotPosX;
+	float shotPosY;
+	float shotPosZ;
+	float hitPosX;
+	float hitPosY;
+	float hitPosZ;
+};

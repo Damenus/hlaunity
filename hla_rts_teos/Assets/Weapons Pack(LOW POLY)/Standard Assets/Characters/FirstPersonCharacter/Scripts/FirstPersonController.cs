@@ -27,6 +27,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        public GameObject m_Spine;
+        public float fireRate = 0.5f;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -39,8 +41,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector3 m_OriginalCameraPosition;
         private float m_StepCycle;
         private float m_NextStep;
-        private bool m_Jumping;
+        private bool m_Jumping;     
         private AudioSource m_AudioSource;
+        private PlayerGameControll playerGameControll;
+
+        private float nextFire = 0.0f;
 
         // Use this for initialization
         private void Start()
@@ -54,7 +59,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
-			m_MouseLook.Init(transform , m_Camera.transform);
+            playerGameControll = GetComponent<PlayerGameControll>();
+
+            m_MouseLook.Init(transform , m_Spine.transform, m_Camera.transform);
         }
 
 
@@ -78,6 +85,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
                 m_MoveDir.y = 0f;
+            }
+            if (Input.GetButton("Fire1") && Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                playerGameControll.shootFromPlayer();
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
@@ -236,7 +248,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            m_MouseLook.LookRotation (transform, m_Camera.transform);
+            m_MouseLook.LookRotation (transform, m_Spine.transform, m_Camera.transform);
         }
 
 
