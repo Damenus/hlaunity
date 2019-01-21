@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<objectModel xsi:schemaLocation="http://standards.ieee.org/IEEE1516-2010 http://standards.ieee.org/downloads/1516/1516.2-2010/IEEE1516-DIF-2010.xsd" xmlns="http://standards.ieee.org/IEEE1516-2010" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelIdentification>
+        <name>RTS-FPS FOM</name>
+        <type>FOM</type>
+        <version>1.0</version>
+        <modificationDate>2018-12-08</modificationDate>
+        <securityClassification>Unclassified</securityClassification>
+        <purpose>Team project FOM</purpose>
+        <applicationDomain>Engineering</applicationDomain>
+        <description></description>
+        <useLimitation>None</useLimitation>
+        <other></other>
+    </modelIdentification>
+    <objects>
+        <objectClass>
+            <name>HLAobjectRoot</name>
+            <objectClass>
+                <name>SimulationObject</name>
+                <sharing>PublishSubscribe</sharing>
+                <semantics>ObjectClass witch contain position, velocity, rotation. Every objectClass in simulation should be child of this</semantics>
+                <attribute>
+                    <name>PosX</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Position X of the object.</semantics>
+                </attribute>
+                <attribute>
+                    <name>PosY</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Position Y of the object.</semantics>
+                </attribute>
+		            <attribute>
+                    <name>PosZ</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Position Z of the object.</semantics>
+                </attribute>
+		            <attribute>
+                    <name>RotX</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Rotation of the object by X axis.</semantics>
+                </attribute>
+		            <attribute>
+                    <name>RotY</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Rotation of the object by Y axis.</semantics>
+                </attribute>
+		            <attribute>
+                    <name>RotZ</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Rotation of the object by Z axis.</semantics>
+                </attribute>
+                <attribute>
+                    <name>VelX</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Rotation of the object by X axis.</semantics>
+                </attribute>
+		            <attribute>
+                    <name>VelY</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Rotation of the object by Y axis.</semantics>
+                </attribute>
+		            <attribute>
+                    <name>VelZ</name>
+                    <dataType>HLAfloat32LE</dataType>
+                    <updateType>Conditional</updateType>
+                    <updateCondition>On change</updateCondition>
+                    <ownership>NoTransfer</ownership>
+                    <sharing>PublishSubscribe</sharing>
+                    <dimensions/>
+                    <transportation>HLAreliable</transportation>
+                    <order>Receive</order>
+                    <semantics>Rotation of the object by Z axis.</semantics>
+                </attribute>
+          			<objectClass>
+          				<name>Vehicle</name>
+          				<sharing>PublishSubscribe</sharing>
+          				<semantics>ObjectClass witch represent evry vechicle in simulation. ex. Tank</semantics>
+          			</objectClass>
+                <objectClass>
+          				<name>Player</name>
+          				<sharing>PublishSubscribe</sharing>
+          				<semantics>ObjectClass witch represent evry player in simulation. </semantics>
+          			</objectClass>
+            </objectClass>
+        </objectClass>
+    </objects>
+    <interactions>
+        <interactionClass>
+            <name>HLAinteractionRoot</name>
+            <interactionClass>
+                <name>Shot</name>
+                <sharing>PublishSubscribe</sharing>
+                <dimensions/>
+                <transportation>HLAreliable</transportation>
+                <order>TimeStamp</order>
+                <semantics>Sent shot event</semantics>
+                <parameter>
+                    <name>ShotPosX</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>ShotPosY</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>ShotPosZ</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>HitPosX</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>HitPosY</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+                <parameter>
+                    <name>HitPosZ</name>
+                    <dataType>HLAfloat32LE</dataType>
+                </parameter>
+            </interactionClass>
+        </interactionClass>
+    </interactions>
+    <switches>
+        <autoProvide isEnabled="true"/>
+        <conveyRegionDesignatorSets isEnabled="false"/>
+        <conveyProducingFederate isEnabled="false"/>
+        <attributeScopeAdvisory isEnabled="false"/>
+        <attributeRelevanceAdvisory isEnabled="false"/>
+        <objectClassRelevanceAdvisory isEnabled="false"/>
+        <interactionRelevanceAdvisory isEnabled="false"/>
+        <serviceReporting isEnabled="false"/>
+        <exceptionReporting isEnabled="false"/>
+        <delaySubscriptionEvaluation isEnabled="false"/>
+        <automaticResignAction resignAction="CancelThenDeleteThenDivest"/>
+    </switches>
+    <dataTypes>
+    </dataTypes>
+    <notes>
+    </notes>
+</objectModel>

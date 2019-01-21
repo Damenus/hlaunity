@@ -97,6 +97,7 @@ void myHlaFederate::connect(wstring FOM, wstring localSetting, wstring federatio
 void myHlaFederate::disconnect()
 {
 	if (_connect) {
+
 		// When we disconnect from the federation execution we want to: 
 		//  - Cancel any pending ownership acquisitions
 		//  - Delete the objects created by us

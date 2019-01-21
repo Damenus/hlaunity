@@ -2,6 +2,7 @@
 # Created by https://www.gitignore.io/api/unity,visualstudio
 # Edit at https://www.gitignore.io/?templates=unity,visualstudio
 
+**/App
 ### Unity ###
 [Ll]ibrary/
 [Tt]emp/

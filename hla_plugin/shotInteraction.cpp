@@ -67,7 +67,6 @@ void shotInteraction::updateParameter(ParameterHandleValueMap const & theParamet
 void shotInteraction::getParameterMap(ParameterHandleValueMap * parameterMap)
 {
 	Debug::Log("get parametr set shot interaction");
-
 	floatDecoder.set(shotPosX);
 	parameterMap->insert(pair<ParameterHandle, VariableLengthData>(shotPosXHandle, floatDecoder.encode()));
 	floatDecoder.set(shotPosY);
@@ -86,6 +85,13 @@ void shotInteraction::getParameterMap(ParameterHandleValueMap * parameterMap)
 void shotInteraction::setShotData(ShotData shotData)
 {
 	Debug::Log("set shot data");
+	shotPosX = shotData.shotPosX;
+	shotPosY = shotData.shotPosY;
+	shotPosZ = shotData.shotPosZ;
+
+	hitPosX = shotData.hitPosX;
+	hitPosY = shotData.hitPosY;
+	hitPosZ = shotData.hitPosZ;
 }
 
 ShotData shotInteraction::getShotData()
